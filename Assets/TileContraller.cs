@@ -22,10 +22,10 @@ public class TileContraller : MonoBehaviour
 
     }
 
-    public void Awake(int Line,int Raw)
+    public void Awake(int Line, int Raw)
     {
-        Debug.Log(this.Line);
-        Debug.Log(string.Format("Tile{0}-{1}", Line + 1, Raw));
+        //Debug.Log(this.Line);
+        //Debug.Log(string.Format("Tile{0}-{1}", Line + 1, Raw));
         GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line+1, Raw));
         next.GetComponent<TileContraller>().ChangeColor();
     }

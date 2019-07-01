@@ -24,6 +24,7 @@ public class GameDirector : MonoBehaviour
                     hit.collider.gameObject.GetComponent<TileContraller>().Raw);
                 //hit.collider.gameObject.GetComponent<TileContraller>().ChangeColor();
             }
+
         }
     }
 }
