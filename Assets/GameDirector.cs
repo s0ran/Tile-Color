@@ -19,7 +19,7 @@ public class GameDirector : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray,out hit, Mathf.Infinity))
             {
-                hit.collider.gameObject.GetComponent<TileContraller>().Awake
+                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
                 (hit.collider.gameObject.GetComponent<TileContraller>().Line,
                     hit.collider.gameObject.GetComponent<TileContraller>().Raw);
                 //hit.collider.gameObject.GetComponent<TileContraller>().ChangeColor();

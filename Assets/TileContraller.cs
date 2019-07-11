@@ -8,8 +8,10 @@ public class TileContraller : MonoBehaviour
     public int Line;
     public int Raw;
     public static int n;
+    public int level;
     public Vector3 Initialpos;
-    public float Delaytime = 0.1f;
+    public float Delaytime = 0.2f;
+    public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f,0,0,1.0f),new Color(0,1.0f,0,1.0f)};
 
     void Start()
     {
@@ -18,6 +20,7 @@ public class TileContraller : MonoBehaviour
         Line = (int)(2.5f-transform.position.z);
         Raw = (int)(2.5f + transform.position.x);
         Initialpos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        level = 0;
         //n = 0;
     }
 
@@ -27,15 +30,30 @@ public class TileContraller : MonoBehaviour
 
     }
 
-    public void Awake(int Line, int Raw)
+    public void OnAwake(int Line, int Raw)
     {
         //Debug.Log(this.Line);
         //Debug.Log(string.Format("Tile{0}-{1}", Line + 1, Raw));
         //Debug.Log();
-        if (((Line != 1) & (Line != 4)) & ((Raw != 1) & (Raw != 4)))
+        if (((((Line != 1)) & (Line != 4)) & ((Raw != 1) & (Raw != 4)))| ((Line != 4) & (Raw == 1)))
         {
             GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line + 1, Raw));
             n = 0;
+            next.GetComponent<TileContraller>().ChangeColor(n);
+        }else if((Line == 1) & (Raw != 1))
+        {
+            GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line, Raw - 1));
+            n = 12;
+            next.GetComponent<TileContraller>().ChangeColor(n);
+        }else if ((Line != 1) & (Raw == 4))
+        {
+            GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line-1, Raw));
+            n = 8;
+            next.GetComponent<TileContraller>().ChangeColor(n);
+        }else if ((Line == 4) & (Raw != 4))
+        {
+            GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line, Raw + 1));
+            n = 4;
             next.GetComponent<TileContraller>().ChangeColor(n);
         }
     }
@@ -51,7 +69,7 @@ public class TileContraller : MonoBehaviour
             GetComponent<Collider>().isTrigger = false;
             transform.Translate(Rotate[i/2]);
             Invoke("DelayMethod", Delaytime);
-            Invoke("MoreDelay", Delaytime * 10);
+            //Invoke("MoreDelay", Delaytime * 10);
             //Debug.Log(this.Raw);
             //GetComponent<Renderer>().material.color = Color.red;
             //DelayMethod(Initialpos);
@@ -63,18 +81,22 @@ public class TileContraller : MonoBehaviour
     {
         Debug.Log("hit");
         n++;
-        Debug.Log(n);
+        if(n >= 16) n -= 16;
+        //Debug.Log(n);
         other.gameObject.GetComponent<TileContraller>().ChangeColor(n);
     }
 
     void DelayMethod()
     {
-        Debug.Log("Delay");
+        //level += 1;
+        //Debug.Log("Delay");
         transform.Translate(0, -0.1f, 0);
-        GetComponent<Renderer>().material.color = Color.red;
-
-        transform.position = Initialpos;
-
+        GetComponent<Renderer>().material.color = Colors[level];
+        Line = (int)(2.5f - transform.position.z);
+        Raw = (int)(2.5f + transform.position.x);
+        this.name = string.Format("Tile{0}-{1}", Line, Raw);
+        //transform.position = Initialpos;
+        GetComponent<Collider>().isTrigger = true;
         //n++;
         //yield return new WaitForSeconds(1.0f);
         //transform.Translate(pos);
