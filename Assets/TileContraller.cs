@@ -39,26 +39,26 @@ public class TileContraller : MonoBehaviour
         {
             GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line + 1, Raw));
             n = 0;
-            next.GetComponent<TileContraller>().ChangeColor(n);
+            next.GetComponent<TileContraller>().ChangeColor();
         }else if((Line == 1) & (Raw != 1))
         {
             GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line, Raw - 1));
             n = 12;
-            next.GetComponent<TileContraller>().ChangeColor(n);
+            next.GetComponent<TileContraller>().ChangeColor();
         }else if ((Line != 1) & (Raw == 4))
         {
             GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line-1, Raw));
             n = 8;
-            next.GetComponent<TileContraller>().ChangeColor(n);
+            next.GetComponent<TileContraller>().ChangeColor();
         }else if ((Line == 4) & (Raw != 4))
         {
             GameObject next = GameObject.Find(string.Format("Tile{0}-{1}", Line, Raw + 1));
             n = 4;
-            next.GetComponent<TileContraller>().ChangeColor(n);
+            next.GetComponent<TileContraller>().ChangeColor();
         }
     }
 
-    public void ChangeColor(int i)
+    public void ChangeColor()
     {
         if (n%2 == 0)
         {
@@ -67,7 +67,7 @@ public class TileContraller : MonoBehaviour
            
             transform.Translate(0, 0.1f, 0);
             GetComponent<Collider>().isTrigger = false;
-            transform.Translate(Rotate[i/2]);
+            transform.Translate(Rotate[n/2]);
             Invoke("DelayMethod", Delaytime);
             //Invoke("MoreDelay", Delaytime * 10);
             //Debug.Log(this.Raw);
@@ -83,7 +83,7 @@ public class TileContraller : MonoBehaviour
         n++;
         if(n >= 16) n -= 16;
         //Debug.Log(n);
-        other.gameObject.GetComponent<TileContraller>().ChangeColor(n);
+        other.gameObject.GetComponent<TileContraller>().ChangeColor();
     }
 
     void DelayMethod()
