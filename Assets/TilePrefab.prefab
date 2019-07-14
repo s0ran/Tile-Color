@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1664102419492511338}
   m_Layer: 0
   m_Name: TilePrefab
-  m_TagString: Untagged
+  m_TagString: level 0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,8 +110,6 @@ MonoBehaviour:
   Line: 0
   Raw: 0
   level: 0
-  Initialpos: {x: 0, y: 0, z: 0}
-  Delaytime: 5
 --- !u!54 &1664102419492511338
 Rigidbody:
   m_ObjectHideFlags: 0

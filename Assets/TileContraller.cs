@@ -9,9 +9,10 @@ public class TileContraller : MonoBehaviour
     public int Raw;
     public static int n;
     public int level;
-    public static float Delaytime=0.05f;
+    public static float Delaytime = 0.05f;
     public static float height = 0.21f;
-    public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f,0,0,1.0f),new Color(0,1.0f,0,1.0f)};
+    public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f), new Color(1.0f, 0.5f, 0.5f, 1.0f),new Color(0.5f, 0, 0.5f, 1.0f),new Color(1.0f,0,0,1.0f),new Color(0,1.0f,0,1.0f)};
+    //GameObject former;
 
     void Start()
     {
@@ -19,13 +20,15 @@ public class TileContraller : MonoBehaviour
         Line = (int)(2.5f　-　transform.position.z);
         Raw = (int)(2.5f + transform.position.x);
         level = 0;
-        Debug.Log("Start");
+        //Debug.Log("Start");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        GetComponent<Renderer>().material.color = Colors[level];
+        if (level == 0) tag = "level 0";
+        else tag = "not level 0";
     }
 
     public void OnAwake(int Line, int Raw)
@@ -99,8 +102,9 @@ public class TileContraller : MonoBehaviour
 
     void EdgeContraller()
     {
-        level = 0;
-        GetComponent<Renderer>().material.color = Colors[level];
+        int FormerLine = Line;
+        int FormerRaw = Raw;
+
         if (((Line == 0) & (Raw != 2)) | ((Line == 2) & (Raw == 5))){
             Line = 1;
             Raw -= 2;
@@ -122,6 +126,23 @@ public class TileContraller : MonoBehaviour
             transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
         }
         this.name = string.Format("Tile{0}-{1}", Line, Raw);
+        if(level != 0)
+        {
+            if (FormerLine == 0) FormerLine++;
+            else if (FormerLine == 5) FormerLine--;
+            else if (FormerRaw == 0) FormerRaw++;
+            else FormerRaw--;
+            GameObject Former = GameObject.Find(string.Format("Tile{0}-{1}", FormerLine, FormerRaw));
+            if (Former.gameObject.GetComponent<TileContraller>().level == 0)
+            {
+                Former.gameObject.GetComponent<TileContraller>().level = level;
+            }
+            else
+            {
+                Former.gameObject.GetComponent<TileContraller>().level++;
+            }
+            level = 0;
+        }
         Invoke("TriggerOn", Delaytime * 0.1f);
     }
 
