@@ -94,6 +94,7 @@ public class TileContraller : MonoBehaviour
         GetComponent<Renderer>().material.color = Colors[level];
         Line = (int)(2.5f - transform.position.z);
         Raw = (int)(2.5f + transform.position.x);
+        if ((Line < 1) | (4 < Line) | (Raw < 1) | (4 < Raw)) Adjust();
         this.name = string.Format("Tile{0}-{1}", Line, Raw);
         //transform.position = Initialpos;
         GetComponent<Collider>().isTrigger = true;
@@ -102,10 +103,34 @@ public class TileContraller : MonoBehaviour
         //transform.Translate(pos);
     }
 
-    void MoreDelay()
+    void Adjust()
+    {
+        if (((Line == 0) & (Raw != 2)) | ((Line == 2) & (Raw == 5))){
+            Line = 1;
+            Raw -= 2;
+            transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
+        }else if (((Line != 3) & (Raw == 0)) | ((Line == 0) & (Raw == 2)))
+        {
+            Line += 2;
+            Raw = 1;
+            transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
+        }else if (((Line == 5) & (Raw != 3)) | ((Line == 3) & (Raw == 0)))
+        {
+            Line = 4;
+            Raw += 2;
+            transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
+        }else if (((Line != 2) & (Raw == 5)) | ((Line == 5) & (Raw == 3)))
+        {
+            Line -= 2;
+            Raw = 4;
+            transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
+        }
+    }
+
+    /*void MoreDelay()
     {
         GetComponent<Collider>().isTrigger = true;
-    }
+    }*/
 }
 
 
