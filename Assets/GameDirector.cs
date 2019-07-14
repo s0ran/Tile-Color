@@ -22,9 +22,7 @@ public class GameDirector : MonoBehaviour
                 hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
                 (hit.collider.gameObject.GetComponent<TileContraller>().Line,
                     hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-                //hit.collider.gameObject.GetComponent<TileContraller>().ChangeColor();
             }
-
         }
     }
 }
