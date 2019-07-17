@@ -35,43 +35,43 @@ public class TileContraller : MonoBehaviour
 
     public void OnAwake(int Line, int Raw)
     {
-        start = new Vector2Int(0, 0);
+        start = new Vector2Int(Line, Raw);
         GameObject next;
         edge = 1;
         if ((Line == 1 | Line == 4) & (Raw == 1 | Raw == 4)) edge = 2;
         if ((((Line != 1)) & (Line != 4)) & ((Raw != 1) & (Raw != 4)))
         {
             edge = 0;
-            start.x = 1;
+            start.x += 1;
             n = 0;
         }
         else if((Line != 4) & (Raw == 1)){
-            start.x = 1;
+            start.x += 1;
             n = 0;
         }
         else if((Line == 1) & (Raw != 1))
         {
-            start.y = -1;
+            start.y -= 1;
             n = 12;
         }
         else if ((Line != 1) & (Raw == 4))
         {
-            start.x = -1;
+            start.x -= 1;
             n = 8;
         }
         else if ((Line == 4) & (Raw != 4))
         {
-            start.y = 1;
+            start.y += 1;
             n = 4;
         }
 
         //if (edge != 0)
         //{
             //Debug.Log(ColorController(Line + start.x, Raw + start.y));
-        m = ColorController(Line + start.x, Raw + start.y)+1;
+        m = ColorController(start.x, start.y)+1;
         Debug.Log(m);
         //}
-        next = GameObject.Find(string.Format("Tile{0}-{1}",Line + start.x , Raw + start.y)) ;
+        next = GameObject.Find(string.Format("Tile{0}-{1}",start.x , start.y)) ;
         next.GetComponent<TileContraller>().Rotation();
     }
 
@@ -86,14 +86,14 @@ public class TileContraller : MonoBehaviour
             int NextLine = (int)(2.5f - transform.position.z - Rotate[n / 2].z);
             int NextRaw = (int)(2.5f + transform.position.x + Rotate[n / 2].x);
 
-            if ((NextLine>=1)&(4>=NextLine)&(NextRaw>=1)&(4>=NextRaw)) {
+            if ((NextLine>=1)&(4>=NextLine)&(NextRaw>=1)&(4>=NextRaw)&(m!=0)) {
                 transform.Translate(Rotate[n / 2]);
                 Invoke("MiddleContraller", Delaytime);
             }
             else
             {
-                Line = NextLine;
-                Raw = NextRaw;
+                //Line = NextLine;
+                //Raw = NextRaw;
                 Invoke("EdgeContraller", Delaytime);
             }
         }
@@ -109,6 +109,7 @@ public class TileContraller : MonoBehaviour
     void MiddleContraller()
     {
         //level += 1;
+        //transform.Translate(Rotate[n / 2]);
         transform.Translate(0, -height, 0);
         //GetComponent<Renderer>().material.color = Colors[level];
         Line = (int)(2.5f - transform.position.z);
@@ -122,7 +123,7 @@ public class TileContraller : MonoBehaviour
         int FormerLine = Line;
         int FormerRaw = Raw;
 
-        if (((Line == 0) & (Raw != 2)) | ((Line == 2) & (Raw == 5))){
+        /*if (((Line == 0) & (Raw != 2)) | ((Line == 2) & (Raw == 5))){
             Line = 1;
             Raw -= 2;
         }else if (((Line != 3) & (Raw == 0)) | ((Line == 0) & (Raw == 2)))
@@ -137,25 +138,29 @@ public class TileContraller : MonoBehaviour
         {
             Line -= 2;
             Raw = 4;
-        }
+        }*/
+        Line = start.x;
+        Raw = start.y;
+
         transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
+        
         this.name = string.Format("Tile{0}-{1}", Line, Raw);
         if(level != 0)
         {
-            if (FormerLine == 0) FormerLine++;
+            /*if (FormerLine == 0) FormerLine++;
             else if (FormerLine == 5) FormerLine--;
             else if (FormerRaw == 0) FormerRaw++;
-            else FormerRaw--;
+            else FormerRaw--;*/
             GameObject Former = GameObject.Find(string.Format("Tile{0}-{1}", FormerLine, FormerRaw));
             if (Former.gameObject.GetComponent<TileContraller>().level == 0)
             {
                 Former.gameObject.GetComponent<TileContraller>().level = level;
             }
-            else
+            else if(Former.gameObject.GetComponent<TileContraller>().level == level)
             {
                 Former.gameObject.GetComponent<TileContraller>().level++;
             }
-            level = 0;
+            if((FormerLine!=Line)|(FormerRaw!=Raw)) level = 0;
         }
         Invoke("TriggerOn", Delaytime * 0.1f);
     }
@@ -196,7 +201,7 @@ public class TileContraller : MonoBehaviour
             //Debug.Log(surroundlevel[i]);
         }
 
-       
+        if (surroundlevel[k - 1] == 0) return k - 1;
         for (i = k - 1; i != 0; i--)
         {
             if ((surroundlevel[i-1] == 0) | (surroundlevel[i] == surroundlevel[i - 1]))
