@@ -145,7 +145,7 @@ public class TileContraller : MonoBehaviour
         transform.position = new Vector3(Raw - 2.5f, 0, 2.5f - Line);
         
         this.name = string.Format("Tile{0}-{1}", Line, Raw);
-        if(level != 0)
+        if((level != 0)&((FormerLine != Line) | (FormerRaw != Raw)) )
         {
             /*if (FormerLine == 0) FormerLine++;
             else if (FormerLine == 5) FormerLine--;
@@ -160,7 +160,7 @@ public class TileContraller : MonoBehaviour
             {
                 Former.gameObject.GetComponent<TileContraller>().level++;
             }
-            if((FormerLine!=Line)|(FormerRaw!=Raw)) level = 0;
+            level = 0;
         }
         Invoke("TriggerOn", Delaytime * 0.1f);
     }
@@ -172,7 +172,7 @@ public class TileContraller : MonoBehaviour
 
     int ColorController(int a, int b)
     {
-        int l = n / 2, i, k = 0;
+        int l = n / 2, i, k;
         GameObject surround;
         int[] surroundlevel = new int[5];
 
