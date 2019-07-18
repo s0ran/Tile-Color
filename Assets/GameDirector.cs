@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDirector : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameDirector : MonoBehaviour
     public bool tapp;
     int possibility;
     float passtime;
+    public bool gameover;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,16 +59,28 @@ public class GameDirector : MonoBehaviour
                 passtime = 0;
             }
         }
+
+        Tile = GameObject.FindGameObjectsWithTag("level 0");
+        if ((Tile.Length == 0)&(gameover == false))
+        {
+            Debug.Log("GameOver");
+            gameover = true;
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
 
     void Generate()
     {
-        Tile = GameObject.FindGameObjectsWithTag("level 0");
+        //Tile = GameObject.FindGameObjectsWithTag("level 0");
+        Debug.Log(Tile.Length);
+        //tilelen = Tile.Length;
         int number = Random.Range(0, Tile.Length);
         int x = Random.Range(0, 100);
         if (x<possibility) {
             Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
+            //tilelen--;
         }
         tapp = false;
+        
     }
 }
