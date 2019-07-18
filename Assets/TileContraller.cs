@@ -9,11 +9,13 @@ public class TileContraller : MonoBehaviour
     public int Raw;
     public static int n,m;
     public int level;
-    public static float Delaytime = 0.05f;
+    public static float Delaytime = 0.03f;
     public float height = 0.21f;
-    public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f), new Color(1.0f, 0.9f, 0.2f, 1.0f),new Color(0, 1.0f,1.0f, 1.0f), new Color(0, 1.0f, 0, 1.0f),
-        new Color(0, 0.3f, 0, 1.0f),new Color(0,0,1.0f,1.0f),new Color(1.0f,0,0,1.0f),new Color(0.5f, 0,1.0f, 0.5f),new Color(1.0f, 0,1.0f, 1.0f)};
-    int edge;//{0:端の回転　1:真ん中の回転}
+    public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f), new Color(1.0f, 0.9f, 0.2f, 1.0f),
+        new Color(1.0f,0.5f,0,1),new Color(0, 1.0f,1.0f, 1.0f), new Color(0, 1.0f, 0, 1.0f),new Color(0, 0.3f, 0, 1.0f),
+        new Color(0,0,1.0f,1.0f),new Color(1.0f,0,0,1.0f),new Color(0.5f, 0,1.0f, 0.5f),new Color(1.0f, 0,1.0f, 1.0f),
+        new Color(0.5f,0.5f,0.5f,1.0f)};
+    int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
     List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
         new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
     public static Vector2Int start;

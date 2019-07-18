@@ -40,11 +40,11 @@ public class GameDirector : MonoBehaviour
 
         if (Tile.Length <= 5)
         {
-            possibility = 10;
+            possibility = 70;
         }
         else if((6<=Tile.Length)&(Tile.Length <= 10))
         {
-            possibility = 70;
+            possibility = 50;
         }
 
 
