@@ -25,7 +25,7 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ScoreText.GetComponent<Text>().text = "Score:   "+score;
+        ScoreText.GetComponent<Text>().text = "Score:  "+score;
 
         if ((Input.GetMouseButtonDown(0))&(tapp==false))
         {
