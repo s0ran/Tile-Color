@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
@@ -10,17 +11,22 @@ public class GameDirector : MonoBehaviour
     int possibility;
     float passtime;
     public bool gameover;
+    public static int score  = 0;
+    public GameObject ScoreText;
     // Start is called before the first frame update
     void Start()
     {
         possibility = 100;
         Generate();
+        Tile = GameObject.FindGameObjectsWithTag("level 0");
         Generate();
     }
 
     // Update is called once per frame
     void Update()
     {
+        ScoreText.GetComponent<Text>().text = "Score:   "+score;
+
         if ((Input.GetMouseButtonDown(0))&(tapp==false))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -37,14 +43,14 @@ public class GameDirector : MonoBehaviour
             {
                 tapp = false;
             }
-            
+            Debug.Log(score);
         }
 
         if (Tile.Length <= 5)
         {
             possibility = 70;
         }
-        else if((6<=Tile.Length)&(Tile.Length <= 10))
+        else if ((6 <= Tile.Length) & (Tile.Length <= 10))
         {
             possibility = 50;
         }
@@ -72,7 +78,7 @@ public class GameDirector : MonoBehaviour
     void Generate()
     {
         //Tile = GameObject.FindGameObjectsWithTag("level 0");
-        Debug.Log(Tile.Length);
+        //Debug.Log(Tile.Length);
         //tilelen = Tile.Length;
         int number = Random.Range(0, Tile.Length);
         int x = Random.Range(0, 100);
