@@ -160,6 +160,7 @@ public class TileContraller : MonoBehaviour
             else if(Former.gameObject.GetComponent<TileContraller>().level == level)
             {
                 Former.gameObject.GetComponent<TileContraller>().level++;
+                GameDirector.score += (int)Math.Pow(2, level);
             }
             level = 0;
         }
