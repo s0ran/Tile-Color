@@ -27,6 +27,7 @@ public class TileContraller : MonoBehaviour
         Raw = (int)(2.5f + transform.position.x);
         //level = Line*4+Raw-5;
         level = 0;
+        //tag = "level 0";
     }
     void Update()
     {
@@ -215,5 +216,6 @@ public class TileContraller : MonoBehaviour
         return 0;
         
     }
+
 
 }

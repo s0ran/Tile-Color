@@ -11,16 +11,19 @@ public class GameDirector : MonoBehaviour
     int possibility;
     float passtime;
     public bool gameover;
-    public static int score  = 0;
+    public static int score;
     public GameObject ScoreText;
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("into");
         possibility = 100;
+        score = 0;
         Generate();
-        Tile = GameObject.FindGameObjectsWithTag("level 0");
+        //Tile = GameObject.FindGameObjectsWithTag("level 0");
         Generate();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -43,7 +46,7 @@ public class GameDirector : MonoBehaviour
             {
                 tapp = false;
             }
-            Debug.Log(score);
+            //Debug.Log(score);
         }
 
         if (Tile.Length <= 5)
@@ -66,7 +69,7 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        Tile = GameObject.FindGameObjectsWithTag("level 0");
+        //Tile = GameObject.FindGameObjectsWithTag("level 0");
         if ((Tile.Length == 0)&(gameover == false))
         {
             Debug.Log("GameOver");
@@ -77,16 +80,25 @@ public class GameDirector : MonoBehaviour
 
     void Generate()
     {
-        //Tile = GameObject.FindGameObjectsWithTag("level 0");
-        //Debug.Log(Tile.Length);
+        Tile = GameObject.FindGameObjectsWithTag("level 0");
+        Debug.Log(Tile.Length);
         //tilelen = Tile.Length;
         int number = Random.Range(0, Tile.Length);
         int x = Random.Range(0, 100);
         if (x<possibility) {
+            
             Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
+            Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
             //tilelen--;
         }
         tapp = false;
+    }
+
+    public void MenuButtonDown()
+    {
+
+        GameObject menu = GameObject.Find("menu");
+        menu.transform.GetChild(1).gameObject.SetActive(true);
         
     }
 }
