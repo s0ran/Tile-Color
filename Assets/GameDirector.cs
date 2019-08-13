@@ -8,7 +8,7 @@ public class GameDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
 	public bool tapp;
-	int possibility;
+	int possibility,tilelen;
 	float passtime;
 	public bool gameover;
 	public static int score;
@@ -70,7 +70,7 @@ public class GameDirector : MonoBehaviour
 		}
 
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
-		if ((Tile.Length == 0)&(gameover == false))
+		if ((tilelen == 0)&(gameover == false))
 		{
 			Debug.Log("GameOver");
 			gameover = true;
@@ -82,14 +82,14 @@ public class GameDirector : MonoBehaviour
 	{
 		Tile = GameObject.FindGameObjectsWithTag("level 0");
 		Debug.Log(Tile.Length);
-		//tilelen = Tile.Length;
+		tilelen = Tile.Length;
 		int number = Random.Range(0, Tile.Length);
 		int x = Random.Range(0, 100);
 		if (x<possibility) {
 
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
-			//tilelen--;
+			tilelen--;
 		}
 		tapp = false;
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
