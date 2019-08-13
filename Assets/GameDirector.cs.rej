@@ -1,0 +1,33 @@
+diff a/Assets/GameDirector.cs b/Assets/GameDirector.cs	(rejected hunks)
+@@ -7,14 +7,31 @@
+     public GameObject[] Tile;
+     bool tapp;
+     int possibility;
++<<<<<<< HEAD
+     // Start is called before the first frame update
+     void Start()
+     {
+         possibility = 100;
+         Generate();
+         Generate();
++=======
++    float passtime;
++    public bool gameover;
++    public static int score;
++    public GameObject ScoreText;
++    // Start is called before the first frame update
++    void Start()
++    {
++        Debug.Log("into");
++        possibility = 100;
++        score = 0;
++        Generate();
++        //Tile = GameObject.FindGameObjectsWithTag("level 0");
++        Generate();
++>>>>>>> 6dd593abb84c559c7b6d83c688967d1e60ad80e1
+     }
+ 
++
+     // Update is called once per frame
+     void Update()
+     {
