@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 
 public class GameDirector : MonoBehaviour
 {
@@ -13,10 +13,14 @@ public class GameDirector : MonoBehaviour
 	public bool gameover;
 	public static int score;
 	public GameObject ScoreText;
-	// Start is called before the first frame update
-	void Start()
+    public GameObject textGameOver;
+    //private Transform _camTransform;
+    //private float _positionStep = 2.0f;
+    // Start is called before the first frame update
+    void Start()
 	{
-		Debug.Log("into");
+        //_camTransform = this.gameObject.transform;
+        Debug.Log("into");
 		possibility = 100;
 		score = 0;
 		Generate();
@@ -72,10 +76,16 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
-			Debug.Log("GameOver");
+			/*Debug.Log("GameOver");
 			gameover = true;
-			SceneManager.LoadScene("GameOverScene");
-		}
+			SceneManager.LoadScene("GameOverScene");*/
+            textGameOver.SetActive(true);
+            /*Vector3 campos = _camTransform.position;
+            campos += _camTransform.right * Time.deltaTime * _positionStep;
+            */
+            GameObject camera = GameObject.Find("Main Camera");
+            camera.gameObject.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(4.5f, 7.0f, 0), Time.deltaTime * 2);
+        }
 	}
 
 	void Generate()
