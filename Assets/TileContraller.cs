@@ -13,8 +13,8 @@ public class TileContraller : MonoBehaviour
 	public float height = 0.21f;
 	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),
 		new Color(1.0f,0.8f,0,1.0f), new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
-		new Color(0,0.42f,1.0f,1.0f),new Color(0.33f, 0.49f,1.0f, 1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
-		new Color(0.43f,0.39f,1.0f,1.0f),new Color(1.0f,0.42f,0.82f,1.0f),new Color(1.0f,0.42f,0.33f,1.0f),new Color(1.0f,0.12f,0,1.0f)};
+		new Color(0,0.42f,1.0f,1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
+		new Color(1.0f,0.22f,0.42f,1.0f),new Color(1.0f,0.12f,0.20f,1.0f),new Color(1.0f, 0,0, 1.0f)};
 	int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
 	List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
 		new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
