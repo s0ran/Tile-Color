@@ -26,7 +26,8 @@ public class GameDirector : MonoBehaviour
 		Generate();
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		Generate();
-	}
+        //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
+    }
 
 
 	// Update is called once per frame
@@ -76,15 +77,19 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
-			/*Debug.Log("GameOver");
+            /*Debug.Log("GameOver");
 			gameover = true;
 			SceneManager.LoadScene("GameOverScene");*/
-            textGameOver.SetActive(true);
+            textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
+           // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
+            GameObject camera = GameObject.Find("Main Camera");
+            //if(textGameOver.GetComponent<Animator>().GetBool("toCamera"))
+            camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
             /*Vector3 campos = _camTransform.position;
             campos += _camTransform.right * Time.deltaTime * _positionStep;
             */
-            GameObject camera = GameObject.Find("Main Camera");
-            camera.gameObject.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(4.5f, 7.0f, 0), Time.deltaTime * 2);
+            /* GameObject camera = GameObject.Find("Main Camera");
+             camera.gameObject.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(4.5f, 7.0f, 0), Time.deltaTime * 2);*/
         }
 	}
 
