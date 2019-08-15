@@ -23,7 +23,7 @@ public class GameDirector : MonoBehaviour
 		possibility = 100;
 		score = 0;
 		Generate();
-		//Tile = GameObject.FindGameObjectsWithTag("level 0");
+		//Tile = GameObject.FindGa meObjectsWithTag("level 0");
 		Generate();
         //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
     }
@@ -76,6 +76,7 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
+            textGameOver.SetActive(true);
             /*Debug.Log("GameOver");
 			gameover = true;
 			SceneManager.LoadScene("GameOverScene");*/
