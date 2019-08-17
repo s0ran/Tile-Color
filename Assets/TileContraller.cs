@@ -7,6 +7,7 @@ public class TileContraller : MonoBehaviour
 {
 	public int Line;
 	public int Raw;
+    public static int maxLevel = 1;
 	public static int n,m;
 	public int level;
 	public static float Delaytime = 0.03f;
@@ -133,6 +134,7 @@ public class TileContraller : MonoBehaviour
 			{
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
+                if (maxLevel < level+1) maxLevel = level+1;
 			}
 			level = 0;
 		}
