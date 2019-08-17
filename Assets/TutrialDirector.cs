@@ -8,15 +8,23 @@ public class TutrialDirector : MonoBehaviour
 	public GameObject[] Tile;
 	public bool tapp;
 	int possibility;
-	bool clear1,clear2,clear3;
+	bool clear1,clear2,clear3,endrotation=false,nottile;
+	public Text Text1,Text2;
 	// Start is called before the first frame update
 	void Start()
 	{
+		//int i;
 		possibility = 100;
 		TileContraller.Delaytime = 1.0f;
 		clear1=false;
 		clear2=false;
 		clear3=false;
+		Text1.enabled=false;
+		Text2.enabled = false;
+		/*for (i = 0; i < Sentence.Length;i++)
+		{
+			Sentence[i].SetActive(false);
+		}*/
 
 	}
 
@@ -27,8 +35,13 @@ public class TutrialDirector : MonoBehaviour
     		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 	    	{
 		    	TapAction();
-		    	clear1=true;
+				if(nottile!=true) Text1.enabled=true;				
 	    	}
+			if (endrotation == true)
+			{
+				Text2.enabled = true;
+				endrotation = false;
+			}
 	    }
 	    else if((clear1==true)&(clear2==false)){
 	        clear2=true;
@@ -52,6 +65,7 @@ public class TutrialDirector : MonoBehaviour
 			//tilelen--;
 		}
 		tapp = false;
+		endrotation = true;
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 	}
 
@@ -61,7 +75,8 @@ public class TutrialDirector : MonoBehaviour
 			tapp = true;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
 			{
-				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+			nottile = false;
+			hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime * 9);
@@ -69,6 +84,7 @@ public class TutrialDirector : MonoBehaviour
 			else
 			{
 				tapp = false;
+			    nottile = true;
 			}
 			//Debug.Log(score);
 	}
