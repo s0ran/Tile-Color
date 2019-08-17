@@ -89,6 +89,19 @@ public class TutrialDirector : MonoBehaviour
 			//Debug.Log(score);
 	}
 
+    public void NextButtonDown()
+	{
+		int i;
+		Tile = GameObject.FindGameObjectsWithTag("not level 0");
+        for (i = 0; i < Tile.Length; i++)
+		{
+            Tile[i].gameObject.GetComponent<TileContraller>().level = 0;
+		}
+		Text1.enabled = false;
+		Text2.enabled = false;
+		clear1 = true;
+	}
+
 }
 
 
