@@ -14,6 +14,7 @@ public class GameDirector : MonoBehaviour
 	public static int score;
 	public GameObject ScoreText;
     public GameObject textGameOver;
+    public GameObject textResultScore;
     //private Transform _camTransform;
     //private float _positionStep = 2.0f;
     // Start is called before the first frame update
@@ -81,7 +82,8 @@ public class GameDirector : MonoBehaviour
 			gameover = true;
 			SceneManager.LoadScene("GameOverScene");*/
             textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
-           // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
+            textResultScore.GetComponent<Text>().text = "Score:  " + score;
+            // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
             GameObject camera = GameObject.Find("Main Camera");
             //if(textGameOver.GetComponent<Animator>().GetBool("toCamera"))
             camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
