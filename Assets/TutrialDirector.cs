@@ -9,18 +9,19 @@ public class TutrialDirector : MonoBehaviour
 	public bool tapp;
 	int possibility;
 	bool clear1,clear2,clear3,endrotation=false,nottile;
-	public Text Text1,Text2;
+	public Text Text1,Text2,Text3;
 	// Start is called before the first frame update
 	void Start()
 	{
 		//int i;
 		possibility = 100;
-		TileContraller.Delaytime = 1.0f;
+		TileContraller.Delaytime = 0.7f;
 		clear1=false;
 		clear2=false;
 		clear3=false;
 		Text1.enabled=false;
 		Text2.enabled = false;
+		Text3.enabled = false;
 		/*for (i = 0; i < Sentence.Length;i++)
 		{
 			Sentence[i].SetActive(false);
@@ -44,7 +45,12 @@ public class TutrialDirector : MonoBehaviour
 			}
 	    }
 	    else if((clear1==true)&(clear2==false)){
-	        clear2=true;
+			Text3.enabled = true;
+			if ((Input.GetMouseButtonDown(0)) & (tapp == false))
+			{
+				TapAction();
+			}
+			if(TileContraller.maxLevel==2) clear2 =true;
 	    }else if((clear1==true)&(clear2==true)&(clear3==false)){
 	        clear3=true;
 	    }
@@ -91,7 +97,7 @@ public class TutrialDirector : MonoBehaviour
 
     public void NextButtonDown()
 	{
-		int i;
+		int i,j;
 		Tile = GameObject.FindGameObjectsWithTag("not level 0");
         for (i = 0; i < Tile.Length; i++)
 		{
@@ -100,6 +106,19 @@ public class TutrialDirector : MonoBehaviour
 		Text1.enabled = false;
 		Text2.enabled = false;
 		clear1 = true;
+		Tile = new GameObject[16];
+		for (i = 1; i <= 4; i++)
+		{
+			for (j = 1; j <= 4; j++)
+			{
+				Tile[4 * (i - 1) + j - 1] = GameObject.Find(string.Format("Tile{0}-{1}", i, j));
+				if ((i == 1) | (i == 4) | (j == 1) | (j == 4)) Tile[4 * (i - 1) + j - 1].gameObject.GetComponent<TileContraller>().level = 1;
+			}
+		}
+		//Tile[0].gameObject.GetComponent<TileContraller>().level = 1;
+		//Tile[0].gameObject.GetComponent<Renderer>().material.color = TileContraller.Colors[1];
+		//Tile[1].gameObject.GetComponent<TileContraller>().level = 1;
+		//Tile[1].gameObject.GetComponent<Renderer>().material.color = TileContraller.Colors[1];
 	}
 
 }
