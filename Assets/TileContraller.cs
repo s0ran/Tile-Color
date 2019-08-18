@@ -21,9 +21,13 @@ public class TileContraller : MonoBehaviour
 		new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
 
+    public AudioClip tileUp;
+    private AudioSource audioSource;
+
 	void Start()
 	{
 		GetComponent<Renderer>().material.color = Color.white;
+        audioSource = GetComponent<AudioSource>();
 		Line = (int)(2.5f　-　transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
@@ -132,6 +136,7 @@ public class TileContraller : MonoBehaviour
 			}
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
+                audioSource.PlayOneShot(tileUp);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
                 if (maxLevel < level+1) maxLevel = level+1;
