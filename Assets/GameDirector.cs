@@ -16,11 +16,16 @@ public class GameDirector : MonoBehaviour
     public GameObject textGameOver;
     public GameObject textResultScore;
     public GameObject textResultLevel;
+
+    public AudioClip tileMove;
+
+    private AudioSource audioSource;
     //private Transform _camTransform;
     //private float _positionStep = 2.0f;
     // Start is called before the first frame update
     void Start()
 	{
+        audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
 		score = 0;
@@ -38,12 +43,14 @@ public class GameDirector : MonoBehaviour
 
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
+            
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			tapp = true;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
 			{
-				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+                audioSource.PlayOneShot(tileMove);
+                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime * 9);
