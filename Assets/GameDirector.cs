@@ -43,13 +43,14 @@ public class GameDirector : MonoBehaviour
 
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
-            audioSource.PlayOneShot(tileMove);
+            
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			tapp = true;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
 			{
-				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+                audioSource.PlayOneShot(tileMove);
+                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime * 9);

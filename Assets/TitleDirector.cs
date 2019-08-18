@@ -16,6 +16,11 @@ public class TitleDirector : MonoBehaviour
     {
         
     }
+
+    public void InvokeStart()
+    {
+        Invoke("StartButtonDown", 1);
+    }
     
     public void StartButtonDown(){
         SceneManager.LoadScene("GameScene");
