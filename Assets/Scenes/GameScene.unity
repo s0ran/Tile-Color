@@ -193,6 +193,8 @@ MonoBehaviour:
   textGameOver: {fileID: 1265478669}
   textResultScore: {fileID: 127479312}
   textResultLevel: {fileID: 751880878}
+  levelPrefab: {fileID: 4215930865585656057, guid: 1de285191349d45f294c7b4049b4c51d,
+    type: 3}
 --- !u!82 &73506103
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2885,7 +2887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1204491858
 RectTransform:
   m_ObjectHideFlags: 0
