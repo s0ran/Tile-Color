@@ -32,6 +32,9 @@ public class TileContraller : MonoBehaviour
 		Raw = (int)(2.5f + transform.position.x);
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
 		level = 0;
+		GameObject Director = GameObject.Find("GameDirector");
+        Director.GetComponent<GameDirector>().leveldesign(1);
+
 	}
 	void Update()
 	{
@@ -140,7 +143,12 @@ public class TileContraller : MonoBehaviour
                 audioSource.PlayOneShot(tileUp);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
-                if (maxLevel < level+1) maxLevel = level+1;
+                if (maxLevel < level+1) {
+                	GameObject Director = GameObject.Find("GameDirector");
+
+                	maxLevel = level+1;
+                	Director.GetComponent<GameDirector>().leveldesign(maxLevel);
+                }
 			}
 			level = 0;
 		}

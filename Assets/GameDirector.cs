@@ -12,10 +12,7 @@ public class GameDirector : MonoBehaviour
 	float passtime;
 	public bool gameover;
 	public static int score;
-	public GameObject ScoreText;
-    public GameObject textGameOver;
-    public GameObject textResultScore;
-    public GameObject textResultLevel;
+	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab;
     private string key = "HIGH SCORE";
 
     //public AudioClip tileMove;
@@ -126,5 +123,12 @@ public class GameDirector : MonoBehaviour
 	{
 		GameObject menu = GameObject.Find("menu");
 		menu.transform.GetChild(1).gameObject.SetActive(true);
+	}
+
+	public void leveldesign(int level){
+		GameObject block;
+		block = Instantiate(levelPrefab);
+		block.transform.position = new Vector3(-3.0f+level, 0 ,-3.0f);
+		block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
 	}
 }
