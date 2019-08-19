@@ -12,8 +12,7 @@ public class TileContraller : MonoBehaviour
 	public int level;
 	public static float Delaytime = 0.06f;
 	public float height = 0.21f;
-	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),
-		new Color(1.0f,0.8f,0,1.0f), new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
+	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
 		new Color(0,0.42f,1.0f,1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
 		new Color(1.0f,0.22f,0.42f,1.0f),new Color(1.0f,0.12f,0.20f,1.0f),new Color(1.0f, 0,0, 1.0f)};
 	int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
