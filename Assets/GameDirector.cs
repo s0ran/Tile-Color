@@ -89,10 +89,10 @@ public class GameDirector : MonoBehaviour
 			gameover = true;
             textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
             textResultScore.GetComponent<Text>().text = "Score:  " + score;
-
+            GameObject camera = GameObject.Find("Main Camera");
             textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
             // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
-            GameObject camera = GameObject.Find("Main Camera");
+            //GameObject camera = GameObject.Find("Main Camera");
             //if(textGameOver.GetComponent<Animator>().GetBool("toCamera"))
             camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
             if(score>highscore){

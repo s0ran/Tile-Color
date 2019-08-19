@@ -9,6 +9,9 @@ public class TitleDirector : MonoBehaviour
     public Text HighScore;
     private int highscore;
     private string key = "HIGH SCORE";
+
+    public GameObject soundOptionCanvas;
+    public GameObject SettingButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,30 @@ public class TitleDirector : MonoBehaviour
         Invoke("StartButtonDown", 1);
     }
 
+    public void InvokeYarikata()
+    {
+        Invoke("YarikataDown", 1);
+    }
+
     public void StartButtonDown(){
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void YarikataDown()
+    {
+        SceneManager.LoadScene("TutrialScene");
+    }
+
+    public void SettingDown()
+    {
+        //GameObject soundOptionCanvas = GameObject.Find("OptionCanvas");
+        soundOptionCanvas.SetActive(true);
+        SettingButton.SetActive(false);
+    }
+
+    public void CloseDown()
+    {
+        soundOptionCanvas.SetActive(false);
+        SettingButton.SetActive(true);
     }
 }
