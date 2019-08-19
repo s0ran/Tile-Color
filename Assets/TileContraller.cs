@@ -22,6 +22,7 @@ public class TileContraller : MonoBehaviour
 	public static Vector2Int start;
 
     public AudioClip tileUp;
+    public AudioClip tileMove;
     private AudioSource audioSource;
 
 	void Start()
@@ -82,6 +83,7 @@ public class TileContraller : MonoBehaviour
 		if ((n%2 == 0)&(m>0))
 		{
 			m--;
+			audioSource.PlayOneShot(tileMove);
 			transform.Translate(0, height, 0);
 			GetComponent<Collider>().isTrigger = false;
 
