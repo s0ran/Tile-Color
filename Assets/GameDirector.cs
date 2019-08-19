@@ -74,7 +74,7 @@ public class GameDirector : MonoBehaviour
 		}
 
 
-		if (tapp == true)
+		if ((tapp == true)&(gameover==false))
 		{
 			passtime += Time.deltaTime;
 			if(passtime >= 1.0f)
@@ -87,6 +87,7 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
+			tapp=true;
             textGameOver.SetActive(true);
 			gameover = true;
             textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");

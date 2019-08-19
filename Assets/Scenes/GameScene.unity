@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -193,7 +193,6 @@ MonoBehaviour:
   textGameOver: {fileID: 1265478669}
   textResultScore: {fileID: 127479312}
   textResultLevel: {fileID: 751880878}
-  tileMove: {fileID: 8300000, guid: b209b10d55d509b43b5e0f00389bdcb6, type: 3}
 --- !u!82 &73506103
 AudioSource:
   m_ObjectHideFlags: 0
@@ -204,7 +203,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3bd8ce39ce3c04a498cf30d2b3b662ef, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 91c0b5aa22fbd144f9f46ddaf7f3738d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

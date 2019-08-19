@@ -112,7 +112,7 @@ MonoBehaviour:
   Raw: 0
   level: 0
   height: 0.21
-  tileUp: {fileID: 8300000, guid: cfdb2915d1a6ba349b7f296a513e0cf0, type: 3}
+  tileUp: {fileID: 8300000, guid: ff99d0f11e3ee41999f70090c89dc237, type: 3}
   tileMove: {fileID: 8300000, guid: b209b10d55d509b43b5e0f00389bdcb6, type: 3}
 --- !u!54 &1664102419492511338
 Rigidbody:
