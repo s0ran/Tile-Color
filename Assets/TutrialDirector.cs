@@ -12,13 +12,13 @@ public class TutrialDirector : MonoBehaviour
 	bool clear1,clear2,endrotation=false,nottile;
 	public Text Text1,Text2,Text3,Text4,Text5,Task;
 	public Button next;
-	Text nextText;
+	public Sprite nextimage,endimage;
 	// Start is called before the first frame update
 	void Start()
 	{
 		//int i;
 		possibility = 100;
-		TileContraller.Delaytime = 0.7f;
+		TileContraller.Delaytime = 0.6f;
 		clear1=false;
 		clear2=false;
 		Text1.enabled=false;
@@ -28,12 +28,8 @@ public class TutrialDirector : MonoBehaviour
 		Text5.enabled = false;
 		next.interactable = false;
 		Task.text = "タイルをタップしよう";
-		nextText = next.GetComponentInChildren<Text>();
+		next.GetComponent<Image>().sprite=nextimage;
 
-		/*for (i = 0; i < Sentence.Length;i++)
-		{
-			Sentence[i].SetActive(false);
-		}*/
 
 	}
 
@@ -131,13 +127,13 @@ public class TutrialDirector : MonoBehaviour
 					if ((i == 1) | (i == 4) | (j == 1) | (j == 4)) Tile[4 * (i - 1) + j - 1].gameObject.GetComponent<TileContraller>().level = 1;
 				}
 			}
-		}else if(nextText.text=="次へ"){
-			nextText.text="終了";
+		}else if(next.GetComponent<Image>().sprite==nextimage){
+			next.GetComponent<Image>().sprite=endimage;
 			Text3.enabled =false;
 			Text4.enabled = false;
 			Text5.enabled = true;
 			Task.text = "チュートリアル完了";
-		}else if(nextText.text=="終了"){
+		}else if(next.GetComponent<Image>().sprite==endimage){
 			SceneManager.LoadScene("TitleScene");
 		}
 	}
