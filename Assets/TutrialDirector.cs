@@ -9,7 +9,7 @@ public class TutrialDirector : MonoBehaviour
 	public GameObject[] Tile;
 	public bool tapp;
 	int possibility;
-	bool clear1,clear2,clear3,endrotation=false,nottile;
+	bool clear1,clear2,endrotation=false,nottile;
 	public Text Text1,Text2,Text3,Text4,Text5,Task;
 	public Button next;
 	Text nextText;
@@ -21,7 +21,6 @@ public class TutrialDirector : MonoBehaviour
 		TileContraller.Delaytime = 0.7f;
 		clear1=false;
 		clear2=false;
-		clear3=false;
 		Text1.enabled=false;
 		Text2.enabled = false;
 		Text3.enabled = false;

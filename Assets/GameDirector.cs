@@ -8,7 +8,7 @@ public class GameDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
 	public bool tapp;
-	int possibility,tilelen;
+	int possibility,tilelen,highscore;
 	float passtime;
 	public bool gameover;
 	public static int score;
@@ -16,6 +16,7 @@ public class GameDirector : MonoBehaviour
     public GameObject textGameOver;
     public GameObject textResultScore;
     public GameObject textResultLevel;
+    private string key = "HIGH SCORE";
 
     //public AudioClip tileMove;
 
@@ -33,6 +34,7 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGa meObjectsWithTag("level 0");
 		Generate();
         //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
+        highscore = PlayerPrefs.GetInt(key,0);
     }
 
 
@@ -86,23 +88,19 @@ public class GameDirector : MonoBehaviour
 		if ((tilelen == 0)&(gameover == false))
 		{
             textGameOver.SetActive(true);
-            /*Debug.Log("GameOver");
 			gameover = true;
-			SceneManager.LoadScene("GameOverScene");*/
             textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
             textResultScore.GetComponent<Text>().text = "Score:  " + score;
-            //GameObject tileContraller = GameObject.Find("TileContraller");
-            //int maxlevel = 0;
+
             textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
             // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
             GameObject camera = GameObject.Find("Main Camera");
             //if(textGameOver.GetComponent<Animator>().GetBool("toCamera"))
             camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
-            /*Vector3 campos = _camTransform.position;
-            campos += _camTransform.right * Time.deltaTime * _positionStep;
-            */
-            /* GameObject camera = GameObject.Find("Main Camera");
-             camera.gameObject.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(4.5f, 7.0f, 0), Time.deltaTime * 2);*/
+            if(score>highscore){
+            	PlayerPrefs.SetInt(key, score);
+            	PlayerPrefs.Save();
+            }
         }
 	}
 
