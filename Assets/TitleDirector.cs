@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class TitleDirector : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class TitleDirector : MonoBehaviour
 
     public GameObject soundOptionCanvas;
     public GameObject SettingButton;
+    public GameObject StartButton;
+    public GameObject YarikataButton;
+    public AudioMixer audioMixer;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +53,25 @@ public class TitleDirector : MonoBehaviour
         //GameObject soundOptionCanvas = GameObject.Find("OptionCanvas");
         soundOptionCanvas.SetActive(true);
         SettingButton.SetActive(false);
+        StartButton.SetActive(false);
+        YarikataButton.SetActive(false);
     }
 
     public void CloseDown()
     {
         soundOptionCanvas.SetActive(false);
         SettingButton.SetActive(true);
+        StartButton.SetActive(true);
+        YarikataButton.SetActive(true);
+    }
+
+    public void SetBGM(float volume)
+    {
+        audioMixer.SetFloat("BGMVol", volume);
+    }
+
+    public void SetSE(float volume)
+    {
+        audioMixer.SetFloat("SEVol",volume);
     }
 }
