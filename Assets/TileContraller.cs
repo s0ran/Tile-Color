@@ -10,7 +10,7 @@ public class TileContraller : MonoBehaviour
     public static int maxLevel = 1;
 	public static int n,m;
 	public int level;
-	public static float Delaytime = 0.06f;
+	public static float Delaytime = 0.04f;
 	public float height = 0.21f;
 	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
 		new Color(0,0.42f,1.0f,1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
@@ -33,7 +33,7 @@ public class TileContraller : MonoBehaviour
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
 		level = 0;
 		GameObject Director = GameObject.Find("GameDirector");
-        Director.GetComponent<GameDirector>().leveldesign(1);
+        //Director.GetComponent<GameDirector>().leveldesign(1);
 
 	}
 	void Update()
@@ -145,8 +145,8 @@ public class TileContraller : MonoBehaviour
 				GameDirector.score += (int)Math.Pow(2, level);
                 if (maxLevel < level+1) {
                 	GameObject Director = GameObject.Find("GameDirector");
-
                 	maxLevel = level+1;
+                	//Debug.Log(maxLevel);
                 	Director.GetComponent<GameDirector>().leveldesign(maxLevel);
                 }
 			}
