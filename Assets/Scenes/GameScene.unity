@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427135, b: 0.56452316, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,7 +206,8 @@ AudioSource:
   m_GameObject: {fileID: 73506100}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5460107071732996756, guid: 2aedd5f523e821d4d8e6949f9277a8c9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 91c0b5aa22fbd144f9f46ddaf7f3738d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2068,7 +2069,7 @@ GameObject:
   - component: {fileID: 961437116}
   - component: {fileID: 961437115}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3198,7 +3199,8 @@ AudioSource:
   m_GameObject: {fileID: 1404879074}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 567241751007830930, guid: 2aedd5f523e821d4d8e6949f9277a8c9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: f6c4ab2bf5544784d91ffddf8151beea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
