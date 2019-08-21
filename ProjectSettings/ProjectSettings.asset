@@ -639,10 +639,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 1fcead47-3f0e-4d79-bbcc-23705d5f8435
+  cloudProjectId: 3ebb7f5b-be04-4c08-9786-320d3336944f
   framebufferDepthMemorylessMode: 0
   projectName: Tile Color
-  organizationId: kakujuna
+  organizationId: unity_9s8waisbqpa1gw
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
