@@ -8,7 +8,7 @@ public class GameDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
 	public bool tapp;
-	int possibility,tilelen,highscore;
+	int possibility=100,tilelen,highscore;
 	float passtime;
 	public bool gameover;
 	public static int score;
@@ -105,13 +105,17 @@ public class GameDirector : MonoBehaviour
 	void Generate()
 	{
 		Tile = GameObject.FindGameObjectsWithTag("level 0");
-		//Debug.Log(Tile.Length);
+
 		tilelen = Tile.Length;
 		int number = Random.Range(0, Tile.Length);
 		int x = Random.Range(0, 100);
+		Debug.Log(x);
 		if (x<possibility) {
+			Debug.Log(number);
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
-			//Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
+			Debug.Log(Tile[number].gameObject.name);
+			Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
+			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
 			tilelen--;
 		}
 		tapp = false;
