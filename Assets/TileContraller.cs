@@ -77,9 +77,11 @@ public class TileContraller : MonoBehaviour
 		}
 
 		m = ColorController(start.x, start.y)+1;
+
 		//next=null;
-		next = GameObject.Find(string.Format("Tile{0}-{1}",start.x , start.y));
+		next = GameObject.Find(string.Format("Tile{0}-{1}",start.x , start.y));//名前がTile{start.x}-{start.y}のタイルをサーチ
 		if(next!=null) next.GetComponent<TileContraller>().Rotation();
+
 	}
 
 	public void Rotation()
