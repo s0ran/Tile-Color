@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 1100449009}
   tapp: 0
   gameover: 0
+  adfrequency: 1
   ScoreText: {fileID: 1092076092}
   textGameOver: {fileID: 1265478669}
   textResultScore: {fileID: 127479312}
@@ -197,6 +198,7 @@ MonoBehaviour:
     type: 3}
   blackPrefab: {fileID: 6823202527076114595, guid: 42cb4fde41e964e0fb7ffba54e30acae,
     type: 3}
+  Restart: {fileID: 961437115}
 --- !u!82 &73506103
 AudioSource:
   m_ObjectHideFlags: 0

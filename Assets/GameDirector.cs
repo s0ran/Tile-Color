@@ -13,8 +13,10 @@ public class GameDirector : MonoBehaviour
 	float passtime;
 	public bool gameover;
 	public static int score;
+	public int adfrequency=1;
 	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab,blackPrefab;
     private string key = "HIGH SCORE";
+    public Button Restart;
 
     //public AudioClip tileMove;
 
@@ -41,7 +43,6 @@ public class GameDirector : MonoBehaviour
 	void Update()
 	{
 		ScoreText.GetComponent<Text>().text = "Score:  "+score;
-
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
 			tapp = true;
@@ -59,6 +60,7 @@ public class GameDirector : MonoBehaviour
 			{
 				tapp = false;
 			}
+			//ScoreText.GetComponent<Text>().text = "Score:  "+score;
 			//Debug.Log(score);
 		}
 
@@ -85,7 +87,8 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
-			Debug.Log(noad);
+			//Debug.Log(noad);
+			Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
             textGameOver.SetActive(true);
@@ -102,11 +105,12 @@ public class GameDirector : MonoBehaviour
             	PlayerPrefs.SetInt(key, score);
             	PlayerPrefs.Save();
             }
-            if(noad>=1){
-            	ShowAd();
+            if(noad>=adfrequency){
+            	Invoke("ShowAd",2.5f);
             	PlayerPrefs.SetInt("AD",0);
             }else{
             	noad++;
+            	Restart.enabled=true;
             	PlayerPrefs.SetInt("AD",noad);
             }
         }
@@ -158,5 +162,6 @@ public class GameDirector : MonoBehaviour
 		if(Advertisement.IsReady()){
 			Advertisement.Show();
 		}
+		Restart.enabled=true;
 	}
 }
