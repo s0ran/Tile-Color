@@ -36,6 +36,7 @@ public class GameDirector : MonoBehaviour
         //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
         highscore = PlayerPrefs.GetInt(key,0);
         leveldesign(1);
+
     }
 
 

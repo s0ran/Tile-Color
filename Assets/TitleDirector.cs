@@ -10,17 +10,16 @@ public class TitleDirector : MonoBehaviour
     public Text HighScore;
     private int highscore;
     private string key = "HIGH SCORE";
-
-    public GameObject soundOptionCanvas;
-    public GameObject SettingButton;
-    public GameObject StartButton;
-    public GameObject YarikataButton;
+    float speed;
+    public GameObject soundOptionCanvas,SettingButton,StartButton,YarikataButton,Panel;
     public AudioMixer audioMixer;
+    public Button Slow,Standard,High;
     // Start is called before the first frame update
     void Start()
     {
         highscore = PlayerPrefs.GetInt(key,0);
         HighScore.text = "HIGH SCORE: " + highscore.ToString();
+
     }
 
     // Update is called once per frame
@@ -51,15 +50,21 @@ public class TitleDirector : MonoBehaviour
     public void SettingDown()
     {
         //GameObject soundOptionCanvas = GameObject.Find("OptionCanvas");
-        soundOptionCanvas.SetActive(true);
+        //soundOptionCanvas.SetActive(true);
+        Panel.SetActive(true);
         SettingButton.SetActive(false);
         StartButton.SetActive(false);
         YarikataButton.SetActive(false);
+        speed = PlayerPrefs.GetFloat("speed",0.04f);
+        if(speed==0.04f) Standard.Select();
+        else if(speed == 0.03) High.Select();
+        else Slow.Select();
     }
 
     public void CloseDown()
     {
-        soundOptionCanvas.SetActive(false);
+        //soundOptionCanvas.SetActive(false);
+        Panel.SetActive(false);
         SettingButton.SetActive(true);
         StartButton.SetActive(true);
         YarikataButton.SetActive(true);
@@ -73,5 +78,18 @@ public class TitleDirector : MonoBehaviour
     public void SetSE(float volume)
     {
         audioMixer.SetFloat("SEVol",volume);
+    }
+
+    public void SlowButtonDown(){
+        PlayerPrefs.SetFloat("speed",0.06f);
+        PlayerPrefs.Save();
+    }
+    public void StandardButtonDown(){
+        PlayerPrefs.SetFloat("speed",0.04f);
+        PlayerPrefs.Save();
+    }
+    public void HighButtonDown(){
+        PlayerPrefs.SetFloat("speed",0.03f);
+        PlayerPrefs.Save();
     }
 }
