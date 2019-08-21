@@ -141,7 +141,7 @@ public class TutrialDirector : MonoBehaviour
             Text5.GetComponent<Animator>().SetTrigger("isText5");
 			Task.text = "チュートリアル完了";
 		}else if(next.GetComponent<Image>().sprite==endimage){
-			SceneManager.LoadScene("GameScene");
+			SceneManager.LoadScene("TitleScene");
 		}
 	}
 
