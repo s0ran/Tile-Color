@@ -40,11 +40,15 @@ public class TutrialDirector : MonoBehaviour
     		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 	    	{
 		    	TapAction();
-				if(nottile!=true) Text1.enabled=true;
+                if (nottile != true) {
+                    Text1.enabled = true;
+                    Text1.GetComponent<Animator>().SetTrigger("isText1");
+                }
 	    	}
 			if (endrotation == true)
 			{
 				Text2.enabled = true;
+                Text2.GetComponent<Animator>().SetTrigger("isText2");
 				endrotation = false;
 				next.interactable=true;
 				Task.text = "クリア";
@@ -53,7 +57,9 @@ public class TutrialDirector : MonoBehaviour
 	    else if((clear1==true)&(clear2==false)){
 	    	Task.text = "色を合体させて色を進化させてみよう（色が変わるよ）";
 			Text3.enabled = true;
+            Text3.GetComponent<Animator>().SetTrigger("isText3");
 			Text4.enabled = true;
+            Text4.GetComponent<Animator>().SetTrigger("isText4");
 			if ((Input.GetMouseButtonDown(0)) & (tapp == false))
 			{
 				TapAction();
@@ -132,6 +138,7 @@ public class TutrialDirector : MonoBehaviour
 			Text3.enabled =false;
 			Text4.enabled = false;
 			Text5.enabled = true;
+            Text5.GetComponent<Animator>().SetTrigger("isText5");
 			Task.text = "チュートリアル完了";
 		}else if(next.GetComponent<Image>().sprite==endimage){
 			SceneManager.LoadScene("TitleScene");
