@@ -105,7 +105,7 @@ public class GameDirector : MonoBehaviour
             	PlayerPrefs.Save();
             }
             if(noad>=adfrequency){
-            	Invoke("ShowAd",2.5f);
+            	//Invoke("ShowAd",2.5f);
             	PlayerPrefs.SetInt("AD",0);
             }else{
             	noad++;
@@ -159,10 +159,10 @@ public class GameDirector : MonoBehaviour
 		block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
 	}
 
-	void ShowAd(){
+	/*oid ShowAd(){
 		if(Advertisement.IsReady()){
 			Advertisement.Show();
 		}
 		Restart.enabled=true;
-	}
+	}*/
 }
