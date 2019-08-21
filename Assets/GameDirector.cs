@@ -27,7 +27,7 @@ public class GameDirector : MonoBehaviour
 		textGameOver.SetActive(false);
 		possibility = 100;
 		score = 0;
-		Generate();
+		Generate();//タイルを生む
 		//Tile = GameObject.FindGa meObjectsWithTag("level 0");
 		Generate();
         //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
@@ -44,17 +44,18 @@ public class GameDirector : MonoBehaviour
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
 			tapp = true;
+            passtime = 0;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity))//タップしたobjectの情報をhitに格納
 			{
                 //audioSource.PlayOneShot(tileMove);
-                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime * 10);
 			}
-			else
+			else//タイル以外をタップした場合
 			{
 				tapp = false;
 			}
@@ -71,7 +72,7 @@ public class GameDirector : MonoBehaviour
 		}
 
 
-		if ((tapp == true)&(gameover==false))
+		if ((tapp == true)&(gameover==false))//タップ無効状態が1秒以上続いたときの対策
 		{
 			passtime += Time.deltaTime;
 			if(passtime >= 1.0f)
@@ -91,9 +92,6 @@ public class GameDirector : MonoBehaviour
             textResultScore.GetComponent<Text>().text = "Score:  " + score;
             GameObject camera = GameObject.Find("Main Camera");
             textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
-            // textGameOver.GetComponent<Animator>().SetBool("toCamera",true);
-            //GameObject camera = GameObject.Find("Main Camera");
-            //if(textGameOver.GetComponent<Animator>().GetBool("toCamera"))
             camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
             if(score>highscore){
             	PlayerPrefs.SetInt(key, score);
@@ -104,19 +102,19 @@ public class GameDirector : MonoBehaviour
 
 	void Generate()
 	{
-		Tile = GameObject.FindGameObjectsWithTag("level 0");
+		Tile = GameObject.FindGameObjectsWithTag("level 0");//白色のタイル
 
-		tilelen = Tile.Length;
+		tilelen = Tile.Length;//配列の長さ
 		int number = Random.Range(0, Tile.Length);
 		int x = Random.Range(0, 100);
-		Debug.Log(x);
+		Debug.Log(x);//デバッグ時に表示
 		if (x<possibility) {
 			Debug.Log(number);
-			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
+			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;//level番目のタイルのレベルを上げる
 			Debug.Log(Tile[number].gameObject.name);
 			Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
-			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
-			tilelen--;
+			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];//黄色にする
+            tilelen--;
 		}
 		tapp = false;
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
