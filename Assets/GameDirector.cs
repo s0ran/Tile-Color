@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
 	public bool tapp;
-	int possibility=100,tilelen,highscore;
+	int possibility=100,tilelen,highscore,noad;
 	float passtime;
 	public bool gameover;
 	public static int score;
@@ -84,6 +85,8 @@ public class GameDirector : MonoBehaviour
 		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 		if ((tilelen == 0)&(gameover == false))
 		{
+			Debug.Log(noad);
+			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
             textGameOver.SetActive(true);
 			gameover = true;
@@ -99,6 +102,13 @@ public class GameDirector : MonoBehaviour
             	PlayerPrefs.SetInt(key, score);
             	PlayerPrefs.Save();
             }
+            if(noad>=1){
+            	ShowAd();
+            	PlayerPrefs.SetInt("AD",0);
+            }else{
+            	noad++;
+            	PlayerPrefs.SetInt("AD",noad);
+            }
         }
 	}
 
@@ -109,12 +119,12 @@ public class GameDirector : MonoBehaviour
 		tilelen = Tile.Length;
 		int number = Random.Range(0, Tile.Length);
 		int x = Random.Range(0, 100);
-		Debug.Log(x);
+		//Debug.Log(x);
 		if (x<possibility) {
-			Debug.Log(number);
+			//Debug.Log(number);
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
-			Debug.Log(Tile[number].gameObject.name);
-			Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
+			//Debug.Log(Tile[number].gameObject.name);
+			//Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
 			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
 			tilelen--;
 		}
@@ -142,5 +152,11 @@ public class GameDirector : MonoBehaviour
 			black.transform.position = new Vector3(-7.5f+level/2.0f, 0 ,-3.4f);
 		}
 		block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
+	}
+
+	void ShowAd(){
+		if(Advertisement.IsReady()){
+			Advertisement.Show();
+		}
 	}
 }
