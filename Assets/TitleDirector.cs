@@ -56,8 +56,9 @@ public class TitleDirector : MonoBehaviour
         StartButton.SetActive(false);
         YarikataButton.SetActive(false);
         speed = PlayerPrefs.GetFloat("speed",0.04f);
+        Debug.Log(speed);
         if(speed==0.04f) Standard.Select();
-        else if(speed == 0.03) High.Select();
+        else if(speed == 0.03f) High.Select();
         else Slow.Select();
     }
 
