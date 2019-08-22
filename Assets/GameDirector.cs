@@ -15,26 +15,27 @@ public class GameDirector : MonoBehaviour
 	public static int score;
 	public int adfrequency=1;
 	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab,blackPrefab;
-    private string key = "HIGH SCORE";
-    public Button Restart;
+	private string key = "HIGH SCORE";
+	public Button Restart;
 
-    //public AudioClip tileMove;
+	//public AudioClip tileMove;
 
-    private AudioSource audioSource;
-    // Start is called before the first frame update
-    void Start()
+	private AudioSource audioSource;
+	// Start is called before the first frame update
+	void Start()
 	{
-        audioSource = GetComponent<AudioSource>();
+		Advertisement.Initialize("3263089",false);
+		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
 		score = 0;
 		Generate();//タイルを生む
 		Generate();
-        highscore = PlayerPrefs.GetInt(key,0);
-        leveldesign(1);
-        //tilelen=0;
+		highscore = PlayerPrefs.GetInt(key,0);
+		leveldesign(1);
+		//tilelen=0;
 
-    }
+	}
 
 
 	// Update is called once per frame
@@ -44,13 +45,13 @@ public class GameDirector : MonoBehaviour
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
 			tapp = true;
-            passtime = 0;
+			passtime = 0;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))//タップしたobjectの情報をhitに格納
 			{
-                //audioSource.PlayOneShot(tileMove);
-                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
+				//audioSource.PlayOneShot(tileMove);
+				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime * 10);
@@ -88,30 +89,30 @@ public class GameDirector : MonoBehaviour
 
 		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=21))
 		{
-			Restart.enabled=false;
+			//Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
-            textGameOver.SetActive(true);
-            if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
+			textGameOver.SetActive(true);
+			if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
 			gameover = true;
-            textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
-            textResultScore.GetComponent<Text>().text = "Score:  " + score;
-            GameObject camera = GameObject.Find("Main Camera");
-            textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
-            camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
-            if(score>highscore){
-            	PlayerPrefs.SetInt(key, score);
-            	PlayerPrefs.Save();
-            }
-            if(noad>=adfrequency){
-            	//Invoke("ShowAd",2.5f);
-            	PlayerPrefs.SetInt("AD",0);
-            }else{
-            	noad++;
-            	Restart.enabled=true;
-            	PlayerPrefs.SetInt("AD",noad);
-            }
-        }
+			textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
+			textResultScore.GetComponent<Text>().text = "Score:  " + score;
+			GameObject camera = GameObject.Find("Main Camera");
+			textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
+			camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
+			if(score>highscore){
+				PlayerPrefs.SetInt(key, score);
+				PlayerPrefs.Save();
+			}
+			if(noad>=adfrequency){
+				Invoke("ShowAd",2.5f);
+				PlayerPrefs.SetInt("AD",0);
+			}else{
+				noad++;
+				Restart.enabled=true;
+				PlayerPrefs.SetInt("AD",noad);
+			}
+		}
 	}
 
 	void Generate()
@@ -125,7 +126,6 @@ public class GameDirector : MonoBehaviour
 		if (x<possibility) {
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
-			//Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
 			tilelen--;
 			lenchange=true;
 		}
@@ -176,10 +176,10 @@ public class GameDirector : MonoBehaviour
 		}
 	}
 
-	/*oid ShowAd(){
+	void ShowAd(){
 		if(Advertisement.IsReady()){
 			Advertisement.Show();
 		}
 		Restart.enabled=true;
-	}*/
+	}
 }
