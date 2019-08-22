@@ -21,8 +21,6 @@ public class GameDirector : MonoBehaviour
     //public AudioClip tileMove;
 
     private AudioSource audioSource;
-    //private Transform _camTransform;
-    //private float _positionStep = 2.0f;
     // Start is called before the first frame update
     void Start()
 	{
@@ -144,19 +142,25 @@ public class GameDirector : MonoBehaviour
 	}
 
 	public void leveldesign(int level){
-		//Debug.Log("into");
-		GameObject block,black;
+		GameObject block,black,block2;
 		block = Instantiate(levelPrefab);
-		black =Instantiate(blackPrefab);
-		if(level<=10){
+		black = Instantiate(blackPrefab);
+		if(level<10){
 			block.transform.position = new Vector3(-2.5f+level/2.0f, 0 ,-2.8f);
 			black.transform.position = new Vector3(-2.5f+level/2.0f, 0 ,-2.8f);
 		}
 		else {
-			block.transform.position = new Vector3(-7.5f+level/2.0f, 0 ,-3.4f);
-			black.transform.position = new Vector3(-7.5f+level/2.0f, 0 ,-3.4f);
+			block.transform.position = new Vector3(-7.0f+level/2.0f, 0 ,-3.4f);
+			black.transform.position = new Vector3(-7.0f+level/2.0f, 0 ,-3.4f);
 		}
-		block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
+		if(level<=8) block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
+		else if(level<14){
+			block2=Instantiate(levelPrefab);
+			block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-9)*2+2];
+			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
+			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[(level-9)*2+1];
+			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
+		}
 	}
 
 	/*oid ShowAd(){

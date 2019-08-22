@@ -5,41 +5,47 @@ using System;
 
 public class TileContraller : MonoBehaviour
 {
-	public int Line;
-	public int Raw;
-    public static int maxLevel = 1;
-	public static int n,m;
-	public int level;
+	public int Line,Raw,level;
+	public static int maxLevel = 1,n,m;
 	public static float Delaytime;
 	public float height = 0.21f;
 	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
 		new Color(0,0.42f,1.0f,1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
 		new Color(1.0f,0.22f,0.42f,1.0f),new Color(1.0f,0.12f,0.20f,1.0f),new Color(1.0f, 0,0, 1.0f)};
 	int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
-	List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
+	 List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
 		new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
-
-    public AudioClip tileUp;
-    public AudioClip tileMove;
-    private AudioSource audioSource;
+	public AudioClip tileUp;
+	public AudioClip tileMove;
+	private AudioSource audioSource;
+	public GameObject levelPrefab;
+	GameObject Second;
+	bool StageUp;
 
 	void Start()
 	{
 		GetComponent<Renderer>().material.color = Color.white;
-        audioSource = GetComponent<AudioSource>();
-		Line = (int)(2.5f　-　transform.position.z);
+		audioSource = GetComponent<AudioSource>();
+		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
 		level = 0;
 		GameObject Director = GameObject.Find("GameDirector");
-        //Director.GetComponent<GameDirector>().leveldesign(1);
-        Delaytime = PlayerPrefs.GetFloat("speed",0.04f);
-        //Debug.Log(Delaytime);
+		//Director.GetComponent<GameDirector>().leveldesign(1);
+		Delaytime = PlayerPrefs.GetFloat("speed",0.04f);
+		StageUp=false;
 	}
 	void Update()
 	{
-		GetComponent<Renderer>().material.color = Colors[level];
+		if(level<=8) GetComponent<Renderer>().material.color = Colors[level];
+		else if(level<14) {
+			if(StageUp==false) SecondStage();
+			GetComponent<Renderer>().material.color = Colors[(level-9)*2+2];
+			Second.transform.position=new Vector3(transform.position.x,transform.position.y+0.1f,transform.position.z);
+			Second.GetComponent<Renderer>().material.color=Colors[(level-9)*2+1];
+			Second.transform.localScale=new Vector3(0.7f,0.01f,0.7f);
+		}
 		if (level == 0) tag = "level 0";
 		else tag = "not level 0";
 	}
@@ -126,9 +132,7 @@ public class TileContraller : MonoBehaviour
 
 	void EdgeContraller()
 	{
-		int FormerLine = Line;
-		int FormerRaw = Raw;
-
+		int FormerLine = Line, FormerRaw = Raw;
 		Line = start.x;
 		Raw = start.y;
 
@@ -144,15 +148,18 @@ public class TileContraller : MonoBehaviour
 			}
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
-                audioSource.PlayOneShot(tileUp);
+				audioSource.PlayOneShot(tileUp);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
-                if (maxLevel < level+1) {
-                	GameObject Director = GameObject.Find("GameDirector");
-                	maxLevel = level+1;
-                	//Debug.Log(maxLevel);
-                	Director.GetComponent<GameDirector>().leveldesign(maxLevel);
-                }
+				if (maxLevel < level+1) {
+					GameObject Director = GameObject.Find("GameDirector");
+					maxLevel = level+1;
+					Director.GetComponent<GameDirector>().leveldesign(maxLevel);
+				}
+			}
+			if(level>8) {
+				Destroy(Second);
+				StageUp=false;
 			}
 			level = 0;
 		}
@@ -163,11 +170,6 @@ public class TileContraller : MonoBehaviour
 	{
 		GetComponent<Collider>().isTrigger = true;
 	}
-
-	/*void emphsis()
-	{
-		transform.Translate(0, -height - 1.0f, 0);
-	}*/
 
 	int ColorController(int a, int b)
 	{
@@ -184,11 +186,9 @@ public class TileContraller : MonoBehaviour
 			k = 3;
 		}
 		else return 10;
-		//Debug.Log(k);
 
 		surround = GameObject.Find(string.Format("Tile{0}-{1}", a, b));
 		surroundlevel[0] = surround.GetComponent<TileContraller>().level;
-		//Debug.Log(string.Format("Tile{0}-{1}", a, b));
 
 		for (i = 1; i < k; i++)
 		{
@@ -197,7 +197,6 @@ public class TileContraller : MonoBehaviour
 			b += (int)Rotate[l + i - 1].x;
 			surround = GameObject.Find(string.Format("Tile{0}-{1}", a, b));
 			surroundlevel[i] = surround.GetComponent<TileContraller>().level;
-			//Debug.Log(surroundlevel[i]);
 		}
 
 		if (surroundlevel[k - 1] == 0) return k - 1;
@@ -209,7 +208,11 @@ public class TileContraller : MonoBehaviour
 			}
 		}
 		return 0;
+	}
 
+	void SecondStage(){
+		Second=Instantiate(levelPrefab);
+		StageUp=true;
 	}
 
 
