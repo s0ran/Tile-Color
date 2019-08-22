@@ -33,6 +33,7 @@ public class GameDirector : MonoBehaviour
         highscore = PlayerPrefs.GetInt(key,0);
         leveldesign(1);
         //tilelen=0;
+        TileContraller.maxLevel=1;
 
     }
 
