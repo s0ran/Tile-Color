@@ -13,6 +13,7 @@ public class TutrialDirector : MonoBehaviour
 	public Text Text1,Text2,Text23,Text3,Text4,Text5,Task;
 	public Button next;
 	public Sprite nextimage,endimage;
+    public GameObject yajirusi;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -67,6 +68,8 @@ public class TutrialDirector : MonoBehaviour
             //Text23.enabled = true;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
+                yajirusi.gameObject.SetActive(true);
+                yajirusi.GetComponent<Animator>().SetTrigger("isLeft");
                 TapAction();
             }
             if(endrotation == true)
