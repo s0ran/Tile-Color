@@ -8,7 +8,7 @@ using UnityEngine.Advertisements;
 public class GameDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
-	public bool tapp;
+	bool tapp,lenchange;
 	int possibility=100,tilelen,highscore,noad;
 	float passtime;
 	public bool gameover;
@@ -29,9 +29,7 @@ public class GameDirector : MonoBehaviour
 		possibility = 100;
 		score = 0;
 		Generate();//タイルを生む
-		//Tile = GameObject.FindGa meObjectsWithTag("level 0");
 		Generate();
-        //textGameOver.GetComponent<Animator>().SetBool("toCamera", false);
         highscore = PlayerPrefs.GetInt(key,0);
         leveldesign(1);
 
@@ -64,13 +62,16 @@ public class GameDirector : MonoBehaviour
 			//Debug.Log(score);
 		}
 
-		if (Tile.Length <= 5)
-		{
-			possibility = 70;
-		}
-		else if ((6 <= Tile.Length) & (Tile.Length <= 10))
-		{
-			possibility = 50;
+		if(lenchange){
+			if (tilelen <= 5)
+			{
+				possibility = 70;
+			}
+			else if ((6 <= tilelen) & (tilelen <= 10))
+			{
+				possibility = 50;
+			}
+			lenchange=false;
 		}
 
 
@@ -84,14 +85,13 @@ public class GameDirector : MonoBehaviour
 			}
 		}
 
-		//Tile = GameObject.FindGameObjectsWithTag("level 0");
-		if ((tilelen == 0)&(gameover == false))
+		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=21))
 		{
-			//Debug.Log(noad);
 			Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
             textGameOver.SetActive(true);
+            if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
 			gameover = true;
             textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
             textResultScore.GetComponent<Text>().text = "Score:  " + score;
@@ -121,18 +121,14 @@ public class GameDirector : MonoBehaviour
 		int number = Random.Range(0, Tile.Length);
 		int x = Random.Range(0, 100);
 
-		//Debug.Log(x);
 		if (x<possibility) {
-			//Debug.Log(number);
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
-			//Debug.Log(Tile[number].gameObject.name);
-			//Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
-			Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
+			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
+			//Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
 			tilelen--;
-
+			lenchange=true;
 		}
 		tapp = false;
-		//Tile = GameObject.FindGameObjectsWithTag("level 0");
 	}
 
 	public void MenuButtonDown()
@@ -149,16 +145,32 @@ public class GameDirector : MonoBehaviour
 			block.transform.position = new Vector3(-2.5f+level/2.0f, 0 ,-2.8f);
 			black.transform.position = new Vector3(-2.5f+level/2.0f, 0 ,-2.8f);
 		}
-		else {
+		else if(level<19){
 			block.transform.position = new Vector3(-7.0f+level/2.0f, 0 ,-3.4f);
 			black.transform.position = new Vector3(-7.0f+level/2.0f, 0 ,-3.4f);
+		}else{
+			block.transform.position = new Vector3(-11.5f+level/2.0f, 0 ,-4.0f);
+			black.transform.position = new Vector3(-11.5f+level/2.0f, 0 ,-4.0f);
 		}
-		if(level<=8) block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
-		else if(level<14){
+		if(level<=7) block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
+		else if(level<12){
 			block2=Instantiate(levelPrefab);
-			block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-9)*2+2];
 			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
-			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[(level-9)*2+1];
+			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
+			if(level!=11){
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+2];
+				block2.GetComponent<Renderer>().material.color=TileContraller.Colors[(level-8)*2+1];
+			}else{
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+1];
+				block2.GetComponent<Renderer>().material.color=Color.white;
+			}
+		}else if(level==12){
+			block.GetComponent<Renderer>().material.color= Color.black;
+		}else if((level>=13)&(level<=21)){
+			block2=Instantiate(levelPrefab);
+			block.GetComponent<Renderer>().material.color= Color.black;
+			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
+			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-14];
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
 		}
 	}
