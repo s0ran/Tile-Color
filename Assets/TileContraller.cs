@@ -23,10 +23,11 @@ public class TileContraller : MonoBehaviour
 	GameObject Second;
 	bool StageUp;
 	public bool LevelUp;
+    public GameObject particle;
 
 	void Start()
 	{
-		GetComponent<Renderer>().material.color = Color.white;
+        GetComponent<Renderer>().material.color = Color.white;
 		audioSource = GetComponent<AudioSource>();
 		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
@@ -125,7 +126,7 @@ public class TileContraller : MonoBehaviour
 		if ((n%2 == 0)&(m>0))
 		{
 			m--;
-			audioSource.PlayOneShot(tileMove);
+            audioSource.PlayOneShot(tileMove);
 			transform.Translate(0, height, 0);
 			GetComponent<Collider>().isTrigger = false;
 
@@ -180,6 +181,7 @@ public class TileContraller : MonoBehaviour
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
 				audioSource.PlayOneShot(tileUp);
+                Instantiate(particle, Former.transform.position, Former.transform.rotation);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
 				Former.gameObject.GetComponent<TileContraller>().LevelUp=true;
