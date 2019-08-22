@@ -32,6 +32,7 @@ public class GameDirector : MonoBehaviour
 		Generate();
         highscore = PlayerPrefs.GetInt(key,0);
         leveldesign(1);
+        //tilelen=0;
 
     }
 
@@ -134,7 +135,7 @@ public class GameDirector : MonoBehaviour
 	public void MenuButtonDown()
 	{
 		GameObject menu = GameObject.Find("menu");
-		menu.transform.GetChild(1).gameObject.SetActive(true);
+		menu.transform.GetChild(0).gameObject.SetActive(true);
 	}
 
 	public void leveldesign(int level){
