@@ -17,9 +17,6 @@ public class GameDirector : MonoBehaviour
 	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab,blackPrefab;
     private string key = "HIGH SCORE";
     public Button Restart;
-
-    //public AudioClip tileMove;
-
     private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -30,11 +27,11 @@ public class GameDirector : MonoBehaviour
 		score = 0;
 		Generate();//タイルを生む
 		Generate();
+		Debug.Log("start");
         highscore = PlayerPrefs.GetInt(key,0);
         leveldesign(1);
         //tilelen=0;
         TileContraller.maxLevel=1;
-
     }
 
 
@@ -120,14 +117,14 @@ public class GameDirector : MonoBehaviour
 		Tile = GameObject.FindGameObjectsWithTag("level 0");//白色のタイル
 
 		tilelen = Tile.Length;//配列の長さ
-		int number = Random.Range(0, Tile.Length);
+		int number = Random.Range(0, tilelen);
 		int x = Random.Range(0, 100);
-
+		Debug.Log(possibility);
 		if (x<possibility) {
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
-			//Tile[number].gameObject.GetComponent<Renderer>().material.color= TileContraller.Colors[1];
 			tilelen--;
+			Debug.Log(Tile[number].gameObject.GetComponent<Renderer>().material.color);
 			lenchange=true;
 		}
 		tapp = false;

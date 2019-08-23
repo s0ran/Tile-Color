@@ -5,7 +5,7 @@ using System;
 
 public class TileContraller : MonoBehaviour
 {
-	public int Line,Raw,level;
+	public int Line,Raw,level=0;
 	public static int maxLevel = 1,n,m;
 	public static float Delaytime;
 	public float height = 0.21f;
@@ -27,16 +27,17 @@ public class TileContraller : MonoBehaviour
 
 	void Start()
 	{
-        GetComponent<Renderer>().material.color = Color.white;
+        //GetComponent<Renderer>().material.color = Color.white;
 		audioSource = GetComponent<AudioSource>();
 		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
-		level = 0;
+		//level = 0;
 		GameObject Director = GameObject.Find("GameDirector");
 		Delaytime = PlayerPrefs.GetFloat("speed",0.04f);
 		StageUp=false;
 		LevelUp=false;
+
 	}
 	void Update()
 	{
