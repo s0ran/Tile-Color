@@ -18,7 +18,7 @@ public class GameDirector : MonoBehaviour
 	private string key = "HIGH SCORE";
 	public Button Restart;
 	private AudioSource audioSource;
-	// Start is called before the first frame update
+
 	void Start()
 	{
 		audioSource = GetComponent<AudioSource>();
@@ -27,10 +27,8 @@ public class GameDirector : MonoBehaviour
 		score = 0;
 		Generate();//タイルを生む
 		Generate();
-		//Debug.Log("start");
 		highscore = PlayerPrefs.GetInt(key,0);
 		leveldesign(1);
-		//tilelen=0;
 		TileContraller.maxLevel=1;
 	}
 
@@ -47,9 +45,8 @@ public class GameDirector : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))//タップしたobjectの情報をhitに格納
 			{
-				//audioSource.PlayOneShot(tileMove);
-				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
-				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
+				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
 				Invoke("Generate", TileContraller.Delaytime*12);
 			}
@@ -57,8 +54,6 @@ public class GameDirector : MonoBehaviour
 			{
 				tapp = false;
 			}
-			//ScoreText.GetComponent<Text>().text = "Score:  "+score;
-			//Debug.Log(score);
 		}
 
 		if(lenchange){
@@ -160,7 +155,7 @@ public class GameDirector : MonoBehaviour
 			block2=Instantiate(levelPrefab);
 			block.GetComponent<Renderer>().material.color= Color.black;
 			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
-			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-14];
+			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-13];
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
 		}
 	}

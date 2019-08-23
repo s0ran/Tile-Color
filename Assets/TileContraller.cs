@@ -29,7 +29,6 @@ public class TileContraller : MonoBehaviour
 
 	void Start()
 	{
-        //GetComponent<Renderer>().material.color = Color.white;
 		audioSource = GetComponent<AudioSource>();
 		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
@@ -78,7 +77,7 @@ public class TileContraller : MonoBehaviour
 				}
 				GetComponent<Renderer>().material.color = Color.black;
 				Second.transform.position=new Vector3(transform.position.x,0.1f,transform.position.z);
-				Second.GetComponent<Renderer>().material.color=Colors[level-14];
+				Second.GetComponent<Renderer>().material.color=Colors[level-13];
 			}
 		}
 		LevelUp=false;
