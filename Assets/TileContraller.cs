@@ -38,7 +38,7 @@ public class TileContraller : MonoBehaviour
 		GameObject Director = GameObject.Find("GameDirector");
 		Delaytime = PlayerPrefs.GetFloat("speed",0.04f);
 		StageUp=false;
-		LevelUp=false;
+		LevelUp=true;
 
 	}
 	void Update()
