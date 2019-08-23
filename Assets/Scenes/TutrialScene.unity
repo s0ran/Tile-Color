@@ -193,7 +193,7 @@ Canvas:
   m_GameObject: {fileID: 55001108}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1239,7 +1239,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\u56DE\u308A\u65B9\u304C\u5909\u308F\u308B"
+  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\u56DE\u308A\u65B9\u304C\u5909\u308F\u308B\u3088\u3002"
 --- !u!222 &482001915
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2376,7 +2376,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u306F\u67A0\u304B\u3089\u51FA\u306A\u3044!"
+  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u306F\u67A0\u304B\u3089\u51FA\u305A\u306B\u30BF\u30A4\u30EB\u540C\u58EB\u306E\u91CD\u306A\u308A\u304C\u304A\u3053\u308B\u3088"
 --- !u!222 &1098998370
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -141,7 +141,7 @@ public class TutrialDirector : MonoBehaviour
             //Debug.Log(number);
             Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
             //Debug.Log(Tile[number].gameObject.name);
-            //Debug.Log(Tile[number].gameObject.GetComponent<TileContraller>().level);
+            Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[number].gameObject.GetComponent<Renderer>().material.color = TileContraller.Colors[1];
 
         }
@@ -202,6 +202,7 @@ public class TutrialDirector : MonoBehaviour
             for (k = 0; k < Tile.Length; k++)
             {
                 Tile[k].gameObject.GetComponent<TileContraller>().level = 0;
+                Tile[k].gameObject.GetComponent<TileContraller>().LevelUp=true;
             }
             Text1.enabled = false;
             Text2.enabled = false;
@@ -211,6 +212,7 @@ public class TutrialDirector : MonoBehaviour
             Tile[7] = GameObject.Find(string.Format("Tile2-4"));
             //Tile[4] = GameObject.Find(string.Format("Tile2-1"));
             Tile[7].gameObject.GetComponent<TileContraller>().level = 1;
+            Tile[7].gameObject.GetComponent<TileContraller>().LevelUp=true;
             //Tile[4].gameObject.GetComponent<TileContraller>().level = 1;
         }
         if (clear21 == true)
@@ -221,12 +223,14 @@ public class TutrialDirector : MonoBehaviour
             for (u = 0; u < Tile.Length; u++)
             {
                 Tile[u].gameObject.GetComponent<TileContraller>().level = 0;
+                Tile[u].gameObject.GetComponent<TileContraller>().LevelUp=true;
             }
             clear23 = true;
             next.interactable = false;
             Tile = new GameObject[16];
             Tile[12] = GameObject.Find(string.Format("Tile4-1"));
             Tile[12].gameObject.GetComponent<TileContraller>().level = 1;
+            Tile[12].gameObject.GetComponent<TileContraller>().LevelUp=true;
         }
         if ((clear1 == true) & (clear24 == true))
         {
@@ -237,6 +241,7 @@ public class TutrialDirector : MonoBehaviour
             for (i = 0; i < Tile.Length; i++)
             {
                 Tile[i].gameObject.GetComponent<TileContraller>().level = 0;
+                Tile[i].gameObject.GetComponent<TileContraller>().LevelUp=true;
             }
             //Text1.enabled = false;
             Text23.enabled = false;
@@ -248,7 +253,10 @@ public class TutrialDirector : MonoBehaviour
                 for (j = 1; j <= 4; j++)
                 {
                     Tile[4 * (i - 1) + j - 1] = GameObject.Find(string.Format("Tile{0}-{1}", i, j));
-                    if ((i == 1) | (i == 4) | (j == 1) | (j == 4)) Tile[4 * (i - 1) + j - 1].gameObject.GetComponent<TileContraller>().level = 1;
+                    if ((i == 1) | (i == 4) | (j == 1) | (j == 4)) {
+                        Tile[4 * (i - 1) + j - 1].gameObject.GetComponent<TileContraller>().level = 1;
+                        Tile[4 * (i - 1) + j - 1].gameObject.GetComponent<TileContraller>().LevelUp=true;
+                    }
                 }
             }
         }
@@ -266,7 +274,7 @@ public class TutrialDirector : MonoBehaviour
             clear41 = true;
             next.interactable = true;
         }
-        
+
     }
 
 }
