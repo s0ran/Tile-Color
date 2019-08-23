@@ -5,7 +5,8 @@ using System;
 
 public class TileContraller : MonoBehaviour
 {
-	public int Line,Raw,level;
+	public int Line,Raw;
+    public int level;
 	public static int maxLevel = 1,n,m;
 	public static float Delaytime;
 	public float height = 0.21f;
@@ -16,6 +17,7 @@ public class TileContraller : MonoBehaviour
 	 List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
 		new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
+    public static bool TutrialClear = false;
 	public AudioClip tileUp;
 	public AudioClip tileMove;
 	private AudioSource audioSource;
@@ -150,6 +152,7 @@ public class TileContraller : MonoBehaviour
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
 				audioSource.PlayOneShot(tileUp);
+                TutrialClear = true;
                 Instantiate(particle, Former.transform.position, Former.transform.rotation);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
