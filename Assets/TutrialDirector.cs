@@ -9,8 +9,8 @@ public class TutrialDirector : MonoBehaviour
 	public GameObject[] Tile;
 	public bool tapp;
 	int possibility;
-	bool clear1,clear21,clear22,clear23,clear24,clear31,clear41,endrotation=false,nottile;
-	public Text Text1,Text2,Text23,Text3,Text4,Text5,Task;
+	bool clear1,clear21,clear22,clear23,clear24,clear31,clear32,clear41,clear51,endrotation=false,nottile;
+	public Text Text1,Text2,Text23,Text3,Text4,Text42,Text5,Task;
 	public Button next;
 	public Sprite nextimage,endimage;
     public GameObject yajirusi2;
@@ -27,12 +27,15 @@ public class TutrialDirector : MonoBehaviour
         clear23 = false;
         clear24 = false;
 		clear31=false;
+        clear32 = false;
         clear41 = false;
+        clear51 = false;
 		Text1.enabled=false;
 		Text2.enabled = false;
         Text23.enabled = false;
 		Text3.enabled = false;
 		Text4.enabled= false;
+        Text42.enabled = false;
 		Text5.enabled = false;
 		next.interactable = false;
 		Task.text = "黄色いタイルを\nタップしよう";
@@ -116,9 +119,25 @@ public class TutrialDirector : MonoBehaviour
             {
                 TapAction(4);
             }
-            if (TileContraller.TutrialClear == true)
+            if ((TileContraller.TutrialClear == true)&(endrotation==true))
             {
+                endrotation = false;
                 clear31 = true;
+                next.interactable = true;
+                Task.text = "クリア";
+            }
+        }
+        else if ((clear32 == true) && (clear51==false))
+        {
+            Task.text = "黄色いタイルをタップしよう";
+            Text42.enabled = true;
+            if ((Input.GetMouseButtonDown(0)) & (tapp == false))
+            {
+                TapAction(5);
+            }
+            if (endrotation == true)
+            {
+                clear51 = true;
                 next.interactable = true;
                 Task.text = "クリア";
             }
@@ -171,6 +190,7 @@ public class TutrialDirector : MonoBehaviour
                         yajirusi1.gameObject.SetActive(true);
                         yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi1");
                         break;
+                    default:break;
                 }
                     nottile = false;
                     hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
@@ -213,7 +233,7 @@ public class TutrialDirector : MonoBehaviour
             Tile[7].gameObject.GetComponent<TileContraller>().level = 1;
             //Tile[4].gameObject.GetComponent<TileContraller>().level = 1;
         }
-        if (clear21 == true)
+        if ((clear21 == true)&(clear24==false))
         {
             yajirusi2.gameObject.SetActive(false);
             int u;
@@ -228,7 +248,7 @@ public class TutrialDirector : MonoBehaviour
             Tile[12] = GameObject.Find(string.Format("Tile4-1"));
             Tile[12].gameObject.GetComponent<TileContraller>().level = 1;
         }
-        if ((clear1 == true) & (clear24 == true))
+        if ((clear31 == false) & (clear24 == true))
         {
             yajirusi1.gameObject.SetActive(false);
             //Task.text = "色を合体させて色を進化させてみよう（色が変わるよ）";
@@ -252,14 +272,41 @@ public class TutrialDirector : MonoBehaviour
                 }
             }
         }
+        if ((clear31 == true)&(clear51==false))
+        {
+            int q;
+            Tile = GameObject.FindGameObjectsWithTag("not level 0");
+            for (q = 0; q < Tile.Length; q++)
+            {
+                Tile[q].gameObject.GetComponent<TileContraller>().level = 0;
+            }
+            Text3.enabled = false;
+            Text4.enabled = false;
+            Text42.enabled = true;
+            clear1 = true;
+            next.interactable = false;
+            Tile = new GameObject[16];
+            Tile[4] = GameObject.Find(string.Format("Tile2-1"));
+            Tile[4].gameObject.GetComponent<TileContraller>().level = 1;
+            Tile[0] = GameObject.Find(string.Format("Tile1-1"));
+            Tile[0].gameObject.GetComponent<TileContraller>().level = 2;
+            Tile[1] = GameObject.Find(string.Format("Tile1-2"));
+            Tile[1].gameObject.GetComponent<TileContraller>().level = 3;
+            Tile[5] = GameObject.Find(string.Format("Tile2-2"));
+            Tile[5].gameObject.GetComponent<TileContraller>().level = 4;
+            Tile[8] = GameObject.Find(string.Format("Tile3-1"));
+            Tile[8].gameObject.GetComponent<TileContraller>().level = 5;
+            Tile[9] = GameObject.Find(string.Format("Tile3-2"));
+            Tile[9].gameObject.GetComponent<TileContraller>().level = 6;
+            clear32 = true;
+        }
         if (clear41 == true)
         {
             SceneManager.LoadScene("TitleScene");
         }
-        if (clear31==true){
+        if ((clear51==true)&(clear41==false)){
 			next.GetComponent<Image>().sprite=endimage;
-			Text3.enabled =false;
-			Text4.enabled = false;
+			Text42.enabled =false;
 			Text5.enabled = true;
             Text5.GetComponent<Animator>().SetTrigger("isText5");
 			Task.text = "チュートリアル完了";
