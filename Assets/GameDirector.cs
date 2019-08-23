@@ -103,11 +103,7 @@ public class GameDirector : MonoBehaviour
 				PlayerPrefs.Save();
 			}
 			if(noad>=adfrequency){
-<<<<<<< HEAD
 				Invoke("ShowAd",2.5f);
-=======
-				//Invoke("ShowAd",2.5f);
->>>>>>> master
 				PlayerPrefs.SetInt("AD",0);
 			}else{
 				noad++;
