@@ -196,7 +196,7 @@ public class TutrialDirector : MonoBehaviour
                     hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
                         (hit.collider.gameObject.GetComponent<TileContraller>().Line,
                             hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-                    Invoke("Generate", TileContraller.Delaytime * 9);
+                    Invoke("Generate", TileContraller.Delaytime * 8);
                 }
                 else
                 {
@@ -287,6 +287,7 @@ public class TutrialDirector : MonoBehaviour
             for (q = 0; q < Tile.Length; q++)
             {
                 Tile[q].gameObject.GetComponent<TileContraller>().level = 0;
+                Tile[q].gameObject.GetComponent<TileContraller>().LevelUp=true;
             }
             Text3.enabled = false;
             Text4.enabled = false;
@@ -296,16 +297,22 @@ public class TutrialDirector : MonoBehaviour
             Tile = new GameObject[16];
             Tile[4] = GameObject.Find(string.Format("Tile2-1"));
             Tile[4].gameObject.GetComponent<TileContraller>().level = 1;
+            Tile[4].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[0] = GameObject.Find(string.Format("Tile1-1"));
             Tile[0].gameObject.GetComponent<TileContraller>().level = 2;
+            Tile[0].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[1] = GameObject.Find(string.Format("Tile1-2"));
             Tile[1].gameObject.GetComponent<TileContraller>().level = 3;
+            Tile[1].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[5] = GameObject.Find(string.Format("Tile2-2"));
             Tile[5].gameObject.GetComponent<TileContraller>().level = 4;
+            Tile[5].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[8] = GameObject.Find(string.Format("Tile3-1"));
             Tile[8].gameObject.GetComponent<TileContraller>().level = 5;
+            Tile[8].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[9] = GameObject.Find(string.Format("Tile3-2"));
             Tile[9].gameObject.GetComponent<TileContraller>().level = 6;
+            Tile[9].gameObject.GetComponent<TileContraller>().LevelUp=true;
             clear32 = true;
         }
         if (clear41 == true)
