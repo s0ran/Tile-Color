@@ -51,7 +51,7 @@ public class GameDirector : MonoBehaviour
 				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-				Invoke("Generate", TileContraller.Delaytime*13);
+				Invoke("Generate", TileContraller.Delaytime*12);
 			}
 			else//タイル以外をタップした場合
 			{
@@ -74,10 +74,10 @@ public class GameDirector : MonoBehaviour
 		}
 
 
-		if ((tapp == true)&(gameover==false))//タップ無効状態が1秒以上続いたときの対策
+		if ((tapp == true)&(gameover==false))//タップ無効状態が0.8秒以上続いたときの対策
 		{
 			passtime += Time.deltaTime;
-			if(passtime >= 1.0f)
+			if(passtime >= 0.8f)
 			{
 				tapp = false;
 				passtime = 0;
