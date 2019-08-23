@@ -7,6 +7,7 @@ public class TileContraller : MonoBehaviour
 {
 	int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
 	public int Line,Raw,level=0;
+
 	public static int maxLevel = 1,n,m;
 	float height = 0.21f;
 	public static float Delaytime;
@@ -20,6 +21,7 @@ public class TileContraller : MonoBehaviour
 		new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
 	public AudioClip tileUp,tileMove;
+    public static bool TutrialClear = false;
 	private AudioSource audioSource;
 	GameObject Second;
 	public GameObject levelPrefab,particle;
@@ -179,6 +181,7 @@ public class TileContraller : MonoBehaviour
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
 				audioSource.PlayOneShot(tileUp);
+                TutrialClear = true;
                 Instantiate(particle, Former.transform.position, Former.transform.rotation);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
