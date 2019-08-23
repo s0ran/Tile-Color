@@ -13,6 +13,7 @@ public class TitleDirector : MonoBehaviour
 	public AudioMixer audioMixer;
 	public Button Slow,Standard,High;
 	public Slider BGM,SE;
+	float speed;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -26,7 +27,9 @@ public class TitleDirector : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		if(speed==0.04f) Standard.Select();
+		else if(speed == 0.02f) High.Select();
+		else Slow.Select();
 	}
 
 	public void InvokeStart()
@@ -54,7 +57,7 @@ public class TitleDirector : MonoBehaviour
 		SettingButton.SetActive(false);
 		StartButton.SetActive(false);
 		YarikataButton.SetActive(false);
-		float speed = PlayerPrefs.GetFloat("speed",0.04f);
+		speed = PlayerPrefs.GetFloat("speed",0.04f);
 		BGM.value = PlayerPrefs.GetFloat("BGMVol",0);
 		SE.value = PlayerPrefs.GetFloat("SEVol",0);
 		if(speed==0.04f) Standard.Select();
@@ -86,14 +89,17 @@ public class TitleDirector : MonoBehaviour
 
 	public void SlowButtonDown(){
 		PlayerPrefs.SetFloat("speed",0.06f);
+		speed=0.06f;
 		PlayerPrefs.Save();
 	}
 	public void StandardButtonDown(){
 		PlayerPrefs.SetFloat("speed",0.04f);
+		speed=0.04f;
 		PlayerPrefs.Save();
 	}
 	public void HighButtonDown(){
-		PlayerPrefs.SetFloat("speed",0.03f);
+		PlayerPrefs.SetFloat("speed",0.02f);
+		speed=0.02f;
 		PlayerPrefs.Save();
 	}
 }

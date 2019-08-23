@@ -5,38 +5,41 @@ using System;
 
 public class TileContraller : MonoBehaviour
 {
-	public int Line,Raw,level;
-	public static int maxLevel = 1,n,m;
-	public static float Delaytime;
-	public float height = 0.21f;
-	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),new Color(1.0f, 0.5f, 0.20f, 1.0f),new Color(1.0f, 0.35f,0, 1.0f),new Color(0, 0.62f, 0.28f, 1.0f),
-		new Color(0,0.42f,1.0f,1.0f),new Color(0.35f, 0.14f,1.0f, 1.0f),
-		new Color(1.0f,0.22f,0.42f,1.0f),new Color(1.0f, 0,0, 1.0f)};
 	int edge;//{0:真ん中の回転　1:端の回転 2:角の回転}
-	 List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1), new Vector3(0, 0, 1),
-		new Vector3(-1, 0, 0),new Vector3(-1,0,0), new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
+	public int Line,Raw,level=0;
+	public static int maxLevel = 1,n,m;
+	float height = 0.21f;
+	public static float Delaytime;
+	public static List<Color> Colors = new List<Color>{new Color(1.0f,1.0f,1.0f,1.0f),
+		new Color(1.0f, 0.5f, 0.20f, 1.0f),new Color(1.0f, 0.35f,0, 1.0f),
+		new Color(0, 0.62f, 0.28f, 1.0f),new Color(0,0.42f,1.0f,1.0f),
+		new Color(0.35f, 0.14f,1.0f, 1.0f),new Color(1.0f,0.22f,0.42f,1.0f),
+		new Color(1.0f, 0,0, 1.0f)};
+	static List<Vector3> Rotate = new List<Vector3> {new Vector3(1,0,0), new Vector3(0,0,1),
+		new Vector3(0, 0, 1),new Vector3(-1, 0, 0),new Vector3(-1,0,0),
+		new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
-	public AudioClip tileUp;
-	public AudioClip tileMove;
+	public AudioClip tileUp,tileMove;
 	private AudioSource audioSource;
-	public GameObject levelPrefab;
 	GameObject Second;
+	public GameObject levelPrefab,particle;
 	bool StageUp;
 	public bool LevelUp;
-    public GameObject particle;
+
 
 	void Start()
 	{
-        GetComponent<Renderer>().material.color = Color.white;
+        //GetComponent<Renderer>().material.color = Color.white;
 		audioSource = GetComponent<AudioSource>();
 		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
 		//level = Line*4+Raw-5;//色見たいときに level0 コメントアウトして
-		level = 0;
+		//level = 0;
 		GameObject Director = GameObject.Find("GameDirector");
 		Delaytime = PlayerPrefs.GetFloat("speed",0.04f);
 		StageUp=false;
 		LevelUp=false;
+
 	}
 	void Update()
 	{
@@ -112,13 +115,9 @@ public class TileContraller : MonoBehaviour
 			start.y += 1;
 			n = 4;
 		}
-
 		m = ColorController(start.x, start.y)+1;
-
-		//next=null;
 		next = GameObject.Find(string.Format("Tile{0}-{1}",start.x , start.y));//名前がTile{start.x}-{start.y}のタイルをサーチ
 		if(next!=null) next.GetComponent<TileContraller>().Rotation();
-
 	}
 
 	public void Rotation()

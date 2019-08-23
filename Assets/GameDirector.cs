@@ -17,14 +17,12 @@ public class GameDirector : MonoBehaviour
 	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab,blackPrefab;
 	private string key = "HIGH SCORE";
 	public Button Restart;
-
-	//public AudioClip tileMove;
-
 	private AudioSource audioSource;
 	// Start is called before the first frame update
 	void Start()
 	{
 		Advertisement.Initialize("3263089",false);
+
 		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
@@ -34,7 +32,7 @@ public class GameDirector : MonoBehaviour
 		highscore = PlayerPrefs.GetInt(key,0);
 		leveldesign(1);
 		//tilelen=0;
-
+		TileContraller.maxLevel=1;
 	}
 
 
@@ -54,7 +52,7 @@ public class GameDirector : MonoBehaviour
 				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-				Invoke("Generate", TileContraller.Delaytime * 10);
+				Invoke("Generate", TileContraller.Delaytime*12);
 			}
 			else//タイル以外をタップした場合
 			{
@@ -77,10 +75,10 @@ public class GameDirector : MonoBehaviour
 		}
 
 
-		if ((tapp == true)&(gameover==false))//タップ無効状態が1秒以上続いたときの対策
+		if ((tapp == true)&(gameover==false))//タップ無効状態が0.8秒以上続いたときの対策
 		{
 			passtime += Time.deltaTime;
-			if(passtime >= 1.0f)
+			if(passtime >= 0.8f)
 			{
 				tapp = false;
 				passtime = 0;
@@ -105,7 +103,11 @@ public class GameDirector : MonoBehaviour
 				PlayerPrefs.Save();
 			}
 			if(noad>=adfrequency){
+<<<<<<< HEAD
 				Invoke("ShowAd",2.5f);
+=======
+				//Invoke("ShowAd",2.5f);
+>>>>>>> master
 				PlayerPrefs.SetInt("AD",0);
 			}else{
 				noad++;
@@ -118,11 +120,9 @@ public class GameDirector : MonoBehaviour
 	void Generate()
 	{
 		Tile = GameObject.FindGameObjectsWithTag("level 0");//白色のタイル
-
 		tilelen = Tile.Length;//配列の長さ
-		int number = Random.Range(0, Tile.Length);
+		int number = Random.Range(0, tilelen);
 		int x = Random.Range(0, 100);
-
 		if (x<possibility) {
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
@@ -130,12 +130,6 @@ public class GameDirector : MonoBehaviour
 			lenchange=true;
 		}
 		tapp = false;
-	}
-
-	public void MenuButtonDown()
-	{
-		GameObject menu = GameObject.Find("menu");
-		menu.transform.GetChild(0).gameObject.SetActive(true);
 	}
 
 	public void leveldesign(int level){
