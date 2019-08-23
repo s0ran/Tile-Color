@@ -15,24 +15,24 @@ public class GameDirector : MonoBehaviour
 	public static int score;
 	public int adfrequency=1;
 	public GameObject ScoreText,textGameOver,textResultScore,textResultLevel,levelPrefab,blackPrefab;
-    private string key = "HIGH SCORE";
-    public Button Restart;
-    private AudioSource audioSource;
-    // Start is called before the first frame update
-    void Start()
+	private string key = "HIGH SCORE";
+	public Button Restart;
+	private AudioSource audioSource;
+	// Start is called before the first frame update
+	void Start()
 	{
-        audioSource = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
 		score = 0;
 		Generate();//タイルを生む
 		Generate();
-		Debug.Log("start");
-        highscore = PlayerPrefs.GetInt(key,0);
-        leveldesign(1);
-        //tilelen=0;
-        TileContraller.maxLevel=1;
-    }
+		//Debug.Log("start");
+		highscore = PlayerPrefs.GetInt(key,0);
+		leveldesign(1);
+		//tilelen=0;
+		TileContraller.maxLevel=1;
+	}
 
 
 	// Update is called once per frame
@@ -42,16 +42,16 @@ public class GameDirector : MonoBehaviour
 		if ((Input.GetMouseButtonDown(0))&(tapp==false))
 		{
 			tapp = true;
-            passtime = 0;
+			passtime = 0;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity))//タップしたobjectの情報をhitに格納
 			{
-                //audioSource.PlayOneShot(tileMove);
-                hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
+				//audioSource.PlayOneShot(tileMove);
+				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake//タップしたタイルのコンポーネントを取得
 				(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-				Invoke("Generate", TileContraller.Delaytime * 10);
+				Invoke("Generate", TileContraller.Delaytime*13);
 			}
 			else//タイル以外をタップした場合
 			{
@@ -89,51 +89,42 @@ public class GameDirector : MonoBehaviour
 			Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
-            textGameOver.SetActive(true);
-            if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
+			textGameOver.SetActive(true);
+			if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
 			gameover = true;
-            textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
-            textResultScore.GetComponent<Text>().text = "Score:  " + score;
-            GameObject camera = GameObject.Find("Main Camera");
-            textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
-            camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
-            if(score>highscore){
-            	PlayerPrefs.SetInt(key, score);
-            	PlayerPrefs.Save();
-            }
-            if(noad>=adfrequency){
-            	//Invoke("ShowAd",2.5f);
-            	PlayerPrefs.SetInt("AD",0);
-            }else{
-            	noad++;
-            	Restart.enabled=true;
-            	PlayerPrefs.SetInt("AD",noad);
-            }
-        }
+			textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
+			textResultScore.GetComponent<Text>().text = "Score:  " + score;
+			GameObject camera = GameObject.Find("Main Camera");
+			textResultLevel.GetComponent<Text>().text = "Level:  " + TileContraller.maxLevel;
+			camera.GetComponent<Animator>().SetTrigger("isGameOverCamera");
+			if(score>highscore){
+				PlayerPrefs.SetInt(key, score);
+				PlayerPrefs.Save();
+			}
+			if(noad>=adfrequency){
+				//Invoke("ShowAd",2.5f);
+				PlayerPrefs.SetInt("AD",0);
+			}else{
+				noad++;
+				Restart.enabled=true;
+				PlayerPrefs.SetInt("AD",noad);
+			}
+		}
 	}
 
 	void Generate()
 	{
 		Tile = GameObject.FindGameObjectsWithTag("level 0");//白色のタイル
-
 		tilelen = Tile.Length;//配列の長さ
 		int number = Random.Range(0, tilelen);
 		int x = Random.Range(0, 100);
-		Debug.Log(possibility);
 		if (x<possibility) {
 			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
 			tilelen--;
-			Debug.Log(Tile[number].gameObject.GetComponent<Renderer>().material.color);
 			lenchange=true;
 		}
 		tapp = false;
-	}
-
-	public void MenuButtonDown()
-	{
-		GameObject menu = GameObject.Find("menu");
-		menu.transform.GetChild(0).gameObject.SetActive(true);
 	}
 
 	public void leveldesign(int level){
