@@ -10,18 +10,21 @@ public class TutrialDirector : MonoBehaviour
 	public bool tapp;
 	int possibility;
 	bool clear1,clear21,clear22,clear23,clear24,clear31,clear32,clear41,clear51,endrotation=false,nottile;
-	public Text Text1,Text2,Text23,Text3,Text4,Text42,Text5,Task;
+	public Text Text1,Text2,Text23,Text3,Text31,Text4,Text42,Text5,Task;
 	public Button next;
 	public Sprite nextimage,endimage;
     public GameObject yajirusi2;
-    public GameObject yajirusi1,yajirusi3;
+    public GameObject yajirusi1,yajirusi3,yajirusi;
+    public Button title;
 	// Start is called before the first frame update
 	void Start()
 	{
-		//int i;
-		possibility = 100;
-		TileContraller.Delaytime = 0.6f;
-		clear1=false;
+        //PlayerPrefs.SetFloat("speed", 0.06f);
+        //int i;
+        possibility = 100;
+		//TileContraller.Delaytime = 0.6f;
+        PlayerPrefs.SetFloat("speed", 0.6f);
+        clear1 =false;
         clear21 = false;
         clear22 = false;
         clear23 = false;
@@ -34,12 +37,14 @@ public class TutrialDirector : MonoBehaviour
 		Text2.enabled = false;
         Text23.enabled = false;
 		Text3.enabled = false;
+        Text31.enabled = false;
 		Text4.enabled= false;
         Text42.enabled = false;
 		Text5.enabled = false;
 		next.interactable = false;
 		Task.text = "黄色いタイルを\nタップしよう";
 		next.GetComponent<Image>().sprite=nextimage;
+        Tile[6] = GameObject.Find(string.Format("Tile2-3"));
         Tile[6].gameObject.GetComponent<TileContraller>().level = 1;
         TileContraller.maxLevel = 100;
 
@@ -72,7 +77,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear1 == true) & (clear21 == false))
         {
-            Task.text = "端にある黄色いタイルをタップしよう";
+            Task.text = "側面にある黄色いタイルをタップしよう";
             //Text23.enabled = true;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
@@ -82,7 +87,7 @@ public class TutrialDirector : MonoBehaviour
             }
             if (endrotation == true)
             {
-                Text23.enabled = true;
+                //Text23.enabled = true;
                 endrotation = false;
                 next.interactable = true;
                 clear21 = true;
@@ -93,6 +98,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear23 == true)&(clear22==false))
         {
+            Task.text = "端にある黄色いタイルをタップしよう";
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
                 /*yajirusi.gameObject.SetActive(true);
@@ -110,7 +116,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear1 == true) & (clear22 == true) & (clear31 == false))
         {
-            Task.text = "色を合体させて色を進化させてみよう（色が変わるよ）";
+            Task.text = "タイルを重ねて\n色を進化させよう";
             Text3.enabled = true;
             Text3.GetComponent<Animator>().SetTrigger("isText3");
             Text4.enabled = true;
@@ -183,10 +189,14 @@ public class TutrialDirector : MonoBehaviour
                         yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi3");
                         break;
                     case 2:
+                        Text23.enabled = true;
                         yajirusi2.gameObject.SetActive(true);
                         yajirusi2.GetComponent<Animator>().SetTrigger("isLeft");
                         break;
                     case 3:
+                        Text31.enabled = true;
+                        yajirusi.gameObject.SetActive(true);
+                        yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
                         yajirusi1.gameObject.SetActive(true);
                         yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi1");
                         break;
@@ -265,6 +275,8 @@ public class TutrialDirector : MonoBehaviour
             }
             //Text1.enabled = false;
             Text23.enabled = false;
+            Text31.enabled = false;
+            yajirusi.gameObject.SetActive(false);
             clear22 = true;
             next.interactable = false;
             Tile = new GameObject[16];
@@ -329,6 +341,11 @@ public class TutrialDirector : MonoBehaviour
             next.interactable = true;
         }
 
+    }
+
+    public void TitleButtonDown()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 
 }
