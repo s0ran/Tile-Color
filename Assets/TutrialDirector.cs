@@ -75,6 +75,7 @@ public class TutrialDirector : MonoBehaviour
             }
             if (endrotation == true)
             {
+                yajirusi3.gameObject.SetActive(false);
                 Text2.enabled = true;
                 //Text2.GetComponent<Animator>().SetTrigger("isText2");
                 endrotation = false;
@@ -95,6 +96,7 @@ public class TutrialDirector : MonoBehaviour
             }
             if (endrotation == true)
             {
+                yajirusi2.gameObject.SetActive(false);
                 //Text23.enabled = true;
                 endrotation = false;
                 next.interactable = true;
@@ -116,6 +118,7 @@ public class TutrialDirector : MonoBehaviour
             }
             if (endrotation == true)
             {
+                yajirusi1.gameObject.SetActive(false);
                 //Text23.enabled = true;
                 endrotation = false;
                 next.interactable = true;
