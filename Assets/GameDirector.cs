@@ -59,7 +59,9 @@ public class GameDirector : MonoBehaviour
 		}
 
 		if(lenchange){
-			if (tilelen <= 5)
+			if((16-tilelen<=TileContraller.maxLevel)&(TileContraller.maxLevel<8)){
+				possibility=100;
+			}else if (tilelen <= 5)
 			{
 				possibility = 70;
 			}
