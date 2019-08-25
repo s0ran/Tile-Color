@@ -10,7 +10,7 @@ public class GameDirector : MonoBehaviour
 	public GameObject[] Tile;
 	bool tapp,lenchange;
 	int possibility=100,tilelen,highscore,noad;
-	float passtime;
+	float passtime,speed;
 	public bool gameover;
 	public static int score;
 	public int adfrequency=1;
@@ -21,8 +21,8 @@ public class GameDirector : MonoBehaviour
 
 	void Start()
 	{
-		Advertisement.Initialize("3263089",false);
-
+		if((PlayerPrefs.GetFloat("speed",0.04f))>0.06f) PlayerPrefs.SetFloat("speed",0.04f);
+		//Advertisement.Initialize("3263089",false);
 		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
@@ -50,7 +50,9 @@ public class GameDirector : MonoBehaviour
 				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-				Invoke("Generate", TileContraller.Delaytime*12);
+				if(TileContraller.Delaytime<0.04)Invoke("Generate", TileContraller.Delaytime*13);
+				else if(TileContraller.Delaytime==0.04)Invoke("Generate", TileContraller.Delaytime*8);
+				else Invoke("Generate",TileContraller.Delaytime*10);
 			}
 			else//タイル以外をタップした場合
 			{
@@ -59,7 +61,9 @@ public class GameDirector : MonoBehaviour
 		}
 
 		if(lenchange){
-			if (tilelen <= 5)
+			if((16-tilelen<=TileContraller.maxLevel)&(TileContraller.maxLevel<8)){
+				possibility=100;
+			}else if (tilelen <= 5)
 			{
 				possibility = 70;
 			}
@@ -81,13 +85,13 @@ public class GameDirector : MonoBehaviour
 			}
 		}
 
-		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=21))
+		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=15))
 		{
 			//Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
 			textGameOver.SetActive(true);
-			if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
+			if(TileContraller.maxLevel>=15) textGameOver.GetComponent<Text>().text="Clear";
 			gameover = true;
 			textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
 			textResultScore.GetComponent<Text>().text = "Score:  " + score;
@@ -99,7 +103,7 @@ public class GameDirector : MonoBehaviour
 				PlayerPrefs.Save();
 			}
 			if(noad>=adfrequency){
-				Invoke("ShowAd",2.5f);
+				//Invoke("ShowAd",2.5f);
 				PlayerPrefs.SetInt("AD",0);
 			}else{
 				noad++;
@@ -140,32 +144,45 @@ public class GameDirector : MonoBehaviour
 			black.transform.position = new Vector3(-11.5f+level/2.0f, 0 ,-4.0f);
 		}
 		if(level<=7) block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
-		else if(level<12){
+		else if(level<11){
 			block2=Instantiate(levelPrefab);
-			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
+			block2.transform.position=new Vector3(block.transform.position.x,0.01f,block.transform.position.z);
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
-			if(level!=11){
-				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+2];
-				block2.GetComponent<Renderer>().material.color=TileContraller.Colors[(level-8)*2+1];
+			if(level<9){
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[7];
+				block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-8];
 			}else{
-				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+1];
-				block2.GetComponent<Renderer>().material.color=Color.white;
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[7];
+				block2.GetComponent<Renderer>().material.color= TileContraller.Colors[level*2-15];
 			}
-		}else if(level==12){
+		}else if(level==11){
 			block.GetComponent<Renderer>().material.color= Color.black;
-		}else if((level>=13)&(level<=21)){
+		}else if((level>=12)&(level<=15)){
 			block2=Instantiate(levelPrefab);
 			block.GetComponent<Renderer>().material.color= Color.black;
-			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
-			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-13];
+			block2.transform.position=new Vector3(block.transform.position.x,0.01f,block.transform.position.z);
+			switch(level){
+				case 12:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[0];
+					break;
+				case 13:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[4];
+					break;
+				case 14:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[6];
+					break;
+				case 15:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[7];
+					break;
+				}
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
 		}
 	}
 
-	void ShowAd(){
-		if(Advertisement.IsReady()){
+	/*void ShowAd(){
+		if(Advertisement.IsReady(){
 			Advertisement.Show();
 		}
 		Restart.enabled=true;
-	}
+	}*/
 }

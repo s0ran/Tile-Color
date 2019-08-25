@@ -53,25 +53,25 @@ public class TileContraller : MonoBehaviour
 				StageUp=false;
 				GetComponent<Renderer>().material.color = Colors[level];
 			}
-			else if(level<12) {
+			else if(level<11) {
 				if(StageUp==false) {
 					Second=Instantiate(levelPrefab);
 					Second.transform.localScale=new Vector3(0.7f,0.01f,0.7f);
 					StageUp=true;
 				}
 				Second.transform.position=new Vector3(transform.position.x,0.1f,transform.position.z);
-				if(level!=11){
-					GetComponent<Renderer>().material.color = Colors[(level-8)*2+2];
-					Second.GetComponent<Renderer>().material.color=Colors[(level-8)*2+1];
+				if(level<9){
+					GetComponent<Renderer>().material.color = Colors[7];
+					Second.GetComponent<Renderer>().material.color=Colors[level-8];
 				}else{
-					GetComponent<Renderer>().material.color = Colors[(level-8)*2+1];
-					Second.GetComponent<Renderer>().material.color=Colors[0];
+					GetComponent<Renderer>().material.color = Colors[7];
+					Second.GetComponent<Renderer>().material.color=Colors[level*2-15];
 				}
-			}else if(level==12){
+			}else if(level==11){
 				Destroy(Second);
 				StageUp=false;
 				GetComponent<Renderer>().material.color = Color.black;
-			}else if((level>=13)&(level<=21)){
+			}else if((level>=12)&(level<=15)){
 				if(StageUp==false) {
 					Second=Instantiate(levelPrefab);
 					Second.transform.localScale=new Vector3(0.7f,0.01f,0.7f);
@@ -79,7 +79,20 @@ public class TileContraller : MonoBehaviour
 				}
 				GetComponent<Renderer>().material.color = Color.black;
 				Second.transform.position=new Vector3(transform.position.x,0.1f,transform.position.z);
-				Second.GetComponent<Renderer>().material.color=Colors[level-13];
+				switch(level){
+					case 12:
+						Second.GetComponent<Renderer>().material.color=Colors[0];
+						break;
+					case 13:
+						Second.GetComponent<Renderer>().material.color=Colors[4];
+						break;
+					case 14:
+						Second.GetComponent<Renderer>().material.color=Colors[6];
+						break;
+					case 15:
+						Second.GetComponent<Renderer>().material.color=Colors[7];
+						break;
+				}
 			}
 		}
 		LevelUp=false;
