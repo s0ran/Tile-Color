@@ -180,7 +180,7 @@ public class GameDirector : MonoBehaviour
 	}
 
 	void ShowAd(){
-		if(Advertisement.IsReady(){
+		if(Advertisement.IsReady()){
 			Advertisement.Show();
 		}
 		Restart.enabled=true;
