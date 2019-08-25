@@ -134,6 +134,7 @@ public class TutrialDirector : MonoBehaviour
             Text4.GetComponent<Animator>().SetTrigger("isText4");
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
+                endrotation = false;
                 TapAction(4);
             }
             if ((TileContraller.TutrialClear == true)&(endrotation==true))
@@ -151,6 +152,7 @@ public class TutrialDirector : MonoBehaviour
             Text42.enabled = true;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
+                
                 TapAction(5);
             }
             if (endrotation == true)
@@ -335,7 +337,7 @@ public class TutrialDirector : MonoBehaviour
             Tile[8].gameObject.GetComponent<TileContraller>().level = 5;
             Tile[8].gameObject.GetComponent<TileContraller>().LevelUp=true;
             Tile[9] = GameObject.Find(string.Format("Tile3-2"));
-            Tile[9].gameObject.GetComponent<TileContraller>().level = 6;
+            Tile[9].gameObject.GetComponent<TileContraller>().level = 5;
             Tile[9].gameObject.GetComponent<TileContraller>().LevelUp=true;
             clear32 = true;
         }
