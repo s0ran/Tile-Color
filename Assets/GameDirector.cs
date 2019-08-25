@@ -83,13 +83,13 @@ public class GameDirector : MonoBehaviour
 			}
 		}
 
-		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=21))
+		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=15))
 		{
 			//Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
 			textGameOver.SetActive(true);
-			if(TileContraller.maxLevel>=21) textGameOver.GetComponent<Text>().text="Clear";
+			if(TileContraller.maxLevel>=15) textGameOver.GetComponent<Text>().text="Clear";
 			gameover = true;
 			textGameOver.GetComponent<Animator>().SetTrigger("isGameOver");
 			textResultScore.GetComponent<Text>().text = "Score:  " + score;
@@ -118,7 +118,7 @@ public class GameDirector : MonoBehaviour
 		int number = Random.Range(0, tilelen);
 		int x = Random.Range(0, 100);
 		if (x<possibility) {
-			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
+			Tile[number].gameObject.GetComponent<TileContraller>().level = 11;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
 			tilelen--;
 			lenchange=true;
@@ -142,24 +142,37 @@ public class GameDirector : MonoBehaviour
 			black.transform.position = new Vector3(-11.5f+level/2.0f, 0 ,-4.0f);
 		}
 		if(level<=7) block.GetComponent<Renderer>().material.color= TileContraller.Colors[level];
-		else if(level<12){
+		else if(level<11){
 			block2=Instantiate(levelPrefab);
-			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
+			block2.transform.position=new Vector3(block.transform.position.x,0.01f,block.transform.position.z);
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
-			if(level!=11){
-				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+2];
-				block2.GetComponent<Renderer>().material.color=TileContraller.Colors[(level-8)*2+1];
+			if(level<9){
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[7];
+				block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-8];
 			}else{
-				block.GetComponent<Renderer>().material.color = TileContraller.Colors[(level-8)*2+1];
-				block2.GetComponent<Renderer>().material.color=Color.white;
+				block.GetComponent<Renderer>().material.color = TileContraller.Colors[7];
+				block2.GetComponent<Renderer>().material.color= TileContraller.Colors[level*2-15];
 			}
-		}else if(level==12){
+		}else if(level==11){
 			block.GetComponent<Renderer>().material.color= Color.black;
-		}else if((level>=13)&(level<=21)){
+		}else if((level>=12)&(level<=15)){
 			block2=Instantiate(levelPrefab);
 			block.GetComponent<Renderer>().material.color= Color.black;
-			block2.transform.position=new Vector3(block.transform.position.x,block.transform.position.y+0.01f,block.transform.position.z);
-			block2.GetComponent<Renderer>().material.color=TileContraller.Colors[level-13];
+			block2.transform.position=new Vector3(block.transform.position.x,0.01f,block.transform.position.z);
+			switch(level){
+				case 12:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[0];
+					break;
+				case 13:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[4];
+					break;
+				case 14:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[6];
+					break;
+				case 15:
+					block2.GetComponent<Renderer>().material.color=TileContraller.Colors[7];
+					break;
+				}
 			block2.transform.localScale=new Vector3(0.28f,0.01f,0.28f);
 		}
 	}
