@@ -21,7 +21,7 @@ public class GameDirector : MonoBehaviour
 
 	void Start()
 	{
-		Advertisement.Initialize("3263089",false);
+		//Advertisement.Initialize("3263089",false);
 
 		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
