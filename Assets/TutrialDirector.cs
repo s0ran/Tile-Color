@@ -59,6 +59,7 @@ public class TutrialDirector : MonoBehaviour
 			WaitTime=8;
 			if ((Input.GetMouseButtonDown(0)) & (tapp == false))
 			{
+				yajirusi3.gameObject.SetActive(false);
 				TapAction(1);
 				if (nottile != true)
 				{
@@ -84,9 +85,10 @@ public class TutrialDirector : MonoBehaviour
 			}
 			if (endrotation == true)
 			{
-				endrotation = false;
+				yajirusi2.gameObject.SetActive(false);
 				next.interactable = true;
 				clear21 = true;
+				endrotation = false;
 			}
 		}
 		else if ((clear23 == true)&(clear22==false))
@@ -99,6 +101,7 @@ public class TutrialDirector : MonoBehaviour
 			}
 			if (endrotation == true)
 			{
+				yajirusi1.gameObject.SetActive(false);
 				endrotation = false;
 				next.interactable = true;
 				clear24 = true;
@@ -107,8 +110,6 @@ public class TutrialDirector : MonoBehaviour
 		}
 		else if ((clear1 == true) & (clear22 == true) & (clear31 == false))
 		{
-
-
 			WaitTime = 8;
 			Task.text = "タイルを重ねて\n色を進化させよう";
 			Text3.enabled = true;
