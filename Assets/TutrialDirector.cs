@@ -158,50 +158,49 @@ public class TutrialDirector : MonoBehaviour
 	}
 
 	void TapAction(int p){
-	    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			tapp = true;
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		tapp = true;
+		if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+		{
+			if(hit.collider.gameObject.CompareTag("not level 0")) {
+			switch (p)
 			{
-				if(hit.collider.gameObject.CompareTag("not level 0")) {
-				switch (p)
-				{
-					case 1:
-						yajirusi3.gameObject.SetActive(true);
-						yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi32");
-						break;
-					case 2:
-						Text23.enabled = true;
-						yajirusi2.gameObject.SetActive(true);
-						yajirusi2.GetComponent<Animator>().SetTrigger("isYajirusi22");
-						break;
-					case 3:
-						Text31.enabled = true;
-						yajirusi.gameObject.SetActive(true);
-						yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
-						yajirusi1.gameObject.SetActive(true);
-						yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi12");
-						break;
-					default:break;
-				}
-					nottile = false;
-					hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
-						(hit.collider.gameObject.GetComponent<TileContraller>().Line,
-							hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-					Invoke("Generate", TileContraller.Delaytime * WaitTime);
-				}
-				else
-				{
-					tapp = false;
-					nottile = true;
-				}
-
+				case 1:
+					yajirusi3.gameObject.SetActive(true);
+					yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi32");
+					break;
+				case 2:
+					Text23.enabled = true;
+					yajirusi2.gameObject.SetActive(true);
+					yajirusi2.GetComponent<Animator>().SetTrigger("isYajirusi22");
+					break;
+				case 3:
+					Text31.enabled = true;
+					yajirusi.gameObject.SetActive(true);
+					yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
+					yajirusi1.gameObject.SetActive(true);
+					yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi12");
+					break;
+				default:break;
+			}
+				nottile = false;
+				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
+					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
+				Invoke("Generate", TileContraller.Delaytime * WaitTime);
 			}
 			else
 			{
 				tapp = false;
-			    nottile = true;
+				nottile = true;
 			}
+		}
+		else
+		{
+			tapp = false;
+			nottile = true;
+		}
 	}
 
 	public void NextButtonDown()
@@ -221,10 +220,8 @@ public class TutrialDirector : MonoBehaviour
 			next.interactable = false;
 			Tile = new GameObject[16];
 			Tile[7] = GameObject.Find(string.Format("Tile2-4"));
-			//Tile[4] = GameObject.Find(string.Format("Tile2-1"));
 			Tile[7].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[7].gameObject.GetComponent<TileContraller>().LevelUp=true;
-			//Tile[4].gameObject.GetComponent<TileContraller>().level = 1;
 		}
 		else if ((clear21 == true)&(clear24==false))
 		{
