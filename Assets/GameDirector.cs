@@ -10,7 +10,7 @@ public class GameDirector : MonoBehaviour
 	public GameObject[] Tile;
 	bool tapp,lenchange;
 	int possibility=100,tilelen,highscore,noad;
-	float passtime;
+	float passtime,speed;
 	public bool gameover;
 	public static int score;
 	public int adfrequency=1;
@@ -21,7 +21,7 @@ public class GameDirector : MonoBehaviour
 
 	void Start()
 	{
-		if(PlayerPrefs.GetFloat("speed",0.04f)>0.06f) PlayerPrefs.SetFloat("speed",0.04f);
+		if((PlayerPrefs.GetFloat("speed",0.04f))>0.06f) PlayerPrefs.SetFloat("speed",0.04f);
 		//Advertisement.Initialize("3263089",false);
 		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
@@ -50,7 +50,9 @@ public class GameDirector : MonoBehaviour
 				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
 					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-				Invoke("Generate", TileContraller.Delaytime*12);
+				if(TileContraller.Delaytime<0.04)Invoke("Generate", TileContraller.Delaytime*13);
+				else if(TileContraller.Delaytime==0.04)Invoke("Generate", TileContraller.Delaytime*8);
+				else Invoke("Generate",TileContraller.Delaytime*10);
 			}
 			else//タイル以外をタップした場合
 			{
@@ -118,7 +120,7 @@ public class GameDirector : MonoBehaviour
 		int number = Random.Range(0, tilelen);
 		int x = Random.Range(0, 100);
 		if (x<possibility) {
-			Tile[number].gameObject.GetComponent<TileContraller>().level = 11;
+			Tile[number].gameObject.GetComponent<TileContraller>().level = 1;
 			Tile[number].gameObject.GetComponent<TileContraller>().LevelUp=true;
 			tilelen--;
 			lenchange=true;
