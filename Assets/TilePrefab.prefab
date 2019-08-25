@@ -111,14 +111,13 @@ MonoBehaviour:
   Line: 0
   Raw: 0
   level: 0
-  height: 0.21
   tileUp: {fileID: 8300000, guid: ff99d0f11e3ee41999f70090c89dc237, type: 3}
   tileMove: {fileID: 8300000, guid: b209b10d55d509b43b5e0f00389bdcb6, type: 3}
   levelPrefab: {fileID: 4215930865585656057, guid: 1de285191349d45f294c7b4049b4c51d,
     type: 3}
-  LevelUp: 0
   particle: {fileID: 8916757670964637594, guid: 7cb3dcdecd756f745a06f5f38dd6ac7b,
     type: 3}
+  LevelUp: 0
 --- !u!54 &1664102419492511338
 Rigidbody:
   m_ObjectHideFlags: 0

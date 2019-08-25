@@ -160,7 +160,9 @@ public class TileContraller : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		n++;
+
+        Debug.Log("Ontrigger");
+        n++;
 		if(n >= 16) n -= 16;
 		other.gameObject.GetComponent<TileContraller>().Rotation();
 	}
@@ -171,7 +173,7 @@ public class TileContraller : MonoBehaviour
 		Line = (int)(2.5f - transform.position.z);
 		Raw = (int)(2.5f + transform.position.x);
 		this.name = string.Format("Tile{0}-{1}", Line, Raw);
-		Invoke("TriggerOn", Delaytime*0.1f);
+		Invoke("TriggerOn", Delaytime);
 	}
 
 	void EdgeContraller()
@@ -212,12 +214,12 @@ public class TileContraller : MonoBehaviour
 			level = 0;
 			LevelUp=true;
 		}
-		Invoke("TriggerOn", Delaytime * 0.1f);
+		Invoke("TriggerOn", Delaytime);
 	}
 
 	void TriggerOn()
 	{
-		GetComponent<Collider>().isTrigger = true;
+        GetComponent<Collider>().isTrigger = true;
 	}
 
 	int ColorController(int a, int b)
