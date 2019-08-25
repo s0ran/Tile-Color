@@ -202,7 +202,7 @@ public class TutrialDirector : MonoBehaviour
                         yajirusi.gameObject.SetActive(true);
                         yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
                         yajirusi1.gameObject.SetActive(true);
-                        yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi1");
+                        yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi12");
                         break;
                     default:break;
                 }
