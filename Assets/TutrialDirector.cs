@@ -8,7 +8,6 @@ public class TutrialDirector : MonoBehaviour
 {
 	public GameObject[] Tile;
 	public bool tapp;
-	int possibility;
 	bool clear1,clear21,clear22,clear23,clear24,clear31,clear32,clear41,clear51,endrotation=false,nottile;
 	public Text Text1,Text2,Text23,Text3,Text31,Text4,Text42,Text5,Task;
 	public Button next;
@@ -25,7 +24,6 @@ public class TutrialDirector : MonoBehaviour
 		formerDelayTime=PlayerPrefs.GetFloat("speed",0.04f);
 		PlayerPrefs.SetFloat("speed",0.6f);
 		TileContraller.Delaytime = 0.6f;
-		possibility = 100;
 		clear1 =false;
 		clear21 = false;
 		clear22 = false;
@@ -49,6 +47,7 @@ public class TutrialDirector : MonoBehaviour
 		Tile[6] = GameObject.Find(string.Format("Tile2-3"));
 		Tile[6].gameObject.GetComponent<TileContraller>().level = 1;
 		TileContraller.maxLevel = 100;
+		TileContraller.TutrialClear = false;
 	}
 
 	// Update is called once per frame
@@ -59,7 +58,6 @@ public class TutrialDirector : MonoBehaviour
 			WaitTime=8;
 			if ((Input.GetMouseButtonDown(0)) & (tapp == false))
 			{
-				yajirusi3.gameObject.SetActive(false);
 				TapAction(1);
 				if (nottile != true)
 				{
@@ -69,6 +67,7 @@ public class TutrialDirector : MonoBehaviour
 			}
 			if (endrotation == true)
 			{
+				yajirusi3.gameObject.SetActive(false);
 				Text2.enabled = true;
 				endrotation = false;
 				next.interactable = true;
@@ -106,6 +105,11 @@ public class TutrialDirector : MonoBehaviour
 				next.interactable = true;
 				clear24 = true;
 				Task.text = "クリア";
+
+
+				//Debug.Log(TileContraller.TutrialClear);
+
+
 			}
 		}
 		else if ((clear1 == true) & (clear22 == true) & (clear31 == false))
@@ -116,6 +120,7 @@ public class TutrialDirector : MonoBehaviour
 			Text3.GetComponent<Animator>().SetTrigger("isText3");
 			Text4.enabled = true;
 			Text4.GetComponent<Animator>().SetTrigger("isText4");
+			//Debug.Log(TileContraller.TutrialClear);
 			if ((Input.GetMouseButtonDown(0)) & (tapp == false))
 			{
 				endrotation = false;
@@ -162,29 +167,50 @@ public class TutrialDirector : MonoBehaviour
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 		tapp = true;
-		if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-		{
-			if(hit.collider.gameObject.CompareTag("not level 0")) {
-			switch (p)
+		if(p!=4){
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
 			{
-				case 1:
-					yajirusi3.gameObject.SetActive(true);
-					yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi32");
-					break;
-				case 2:
-					Text23.enabled = true;
-					yajirusi2.gameObject.SetActive(true);
-					yajirusi2.GetComponent<Animator>().SetTrigger("isYajirusi22");
-					break;
-				case 3:
-					Text31.enabled = true;
-					yajirusi.gameObject.SetActive(true);
-					yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
-					yajirusi1.gameObject.SetActive(true);
-					yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi12");
-					break;
-				default:break;
+				if(hit.collider.gameObject.CompareTag("not level 0")) {
+				switch (p)
+				{
+					case 1:
+						yajirusi3.gameObject.SetActive(true);
+						yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi32");
+						break;
+					case 2:
+						Text23.enabled = true;
+						yajirusi2.gameObject.SetActive(true);
+						yajirusi2.GetComponent<Animator>().SetTrigger("isYajirusi22");
+						break;
+					case 3:
+						Text31.enabled = true;
+						yajirusi.gameObject.SetActive(true);
+						yajirusi.GetComponent<Animator>().SetTrigger("isYajirusi5");
+						yajirusi1.gameObject.SetActive(true);
+						yajirusi1.GetComponent<Animator>().SetTrigger("isYajirusi12");
+						break;
+					default:break;
+				}
+				nottile = false;
+				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
+					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
+					hit.collider.gameObject.GetComponent<TileContraller>().Raw);
+				Invoke("Generate", TileContraller.Delaytime * WaitTime);
+				}
+				else
+				{
+					tapp = false;
+					nottile = true;
+				}
 			}
+			else
+			{
+				tapp = false;
+				nottile = true;
+			}
+		}else {
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+			{
 				nottile = false;
 				hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
 					(hit.collider.gameObject.GetComponent<TileContraller>().Line,
@@ -196,11 +222,6 @@ public class TutrialDirector : MonoBehaviour
 				tapp = false;
 				nottile = true;
 			}
-		}
-		else
-		{
-			tapp = false;
-			nottile = true;
 		}
 	}
 
@@ -244,7 +265,6 @@ public class TutrialDirector : MonoBehaviour
 		else if ((clear31 == false) & (clear24 == true))
 		{
 			yajirusi1.gameObject.SetActive(false);
-			//Task.text = "色を合体させて色を進化させてみよう（色が変わるよ）";
 			int i, j;
 			Tile = GameObject.FindGameObjectsWithTag("not level 0");
 			for (i = 0; i < Tile.Length; i++)

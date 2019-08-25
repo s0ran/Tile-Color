@@ -87,7 +87,7 @@ public class GameDirector : MonoBehaviour
 
 		if (((tilelen == 0)&(gameover == false))|(TileContraller.maxLevel>=15))
 		{
-			//Restart.enabled=false;
+			Restart.enabled=false;
 			noad = PlayerPrefs.GetInt("AD", 0);
 			tapp=true;
 			textGameOver.SetActive(true);
@@ -103,7 +103,7 @@ public class GameDirector : MonoBehaviour
 				PlayerPrefs.Save();
 			}
 			if(noad>=adfrequency){
-				//Invoke("ShowAd",2.5f);
+				Invoke("ShowAd",2.5f);
 				PlayerPrefs.SetInt("AD",0);
 			}else{
 				noad++;

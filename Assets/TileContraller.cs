@@ -21,7 +21,7 @@ public class TileContraller : MonoBehaviour
 		new Vector3(0,0,-1),new Vector3(0,0,-1),new Vector3(1,0,0)};
 	public static Vector2Int start;
 	public AudioClip tileUp,tileMove;
-    public static bool TutrialClear = false;
+	public static bool TutrialClear = false;
 	private AudioSource audioSource;
 	GameObject Second;
 	public GameObject levelPrefab,particle;
@@ -139,7 +139,7 @@ public class TileContraller : MonoBehaviour
 		if ((n%2 == 0)&(m>0))
 		{
 			m--;
-            audioSource.PlayOneShot(tileMove);
+			audioSource.PlayOneShot(tileMove);
 			transform.Translate(0, height, 0);
 			GetComponent<Collider>().isTrigger = false;
 
@@ -194,8 +194,8 @@ public class TileContraller : MonoBehaviour
 			else if(Former.gameObject.GetComponent<TileContraller>().level == level)
 			{
 				audioSource.PlayOneShot(tileUp);
-                TutrialClear = true;
-                Instantiate(particle, Former.transform.position, Former.transform.rotation);
+				TutrialClear = true;
+				Instantiate(particle, Former.transform.position, Former.transform.rotation);
 				Former.gameObject.GetComponent<TileContraller>().level++;
 				GameDirector.score += (int)Math.Pow(2, level);
 				Former.gameObject.GetComponent<TileContraller>().LevelUp=true;
