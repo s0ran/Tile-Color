@@ -16,14 +16,18 @@ public class TutrialDirector : MonoBehaviour
     public GameObject yajirusi2;
     public GameObject yajirusi1,yajirusi3,yajirusi;
     public Button title;
+    float formerDelayTime;
 	// Start is called before the first frame update
 	void Start()
 	{
+        formerDelayTime=PlayerPrefs.GetFloat("speed",0.04f);
+		PlayerPrefs.SetFloat("speed",0.6f);
+		TileContraller.Delaytime = 0.6f;
         //PlayerPrefs.SetFloat("speed", 0.06f);
         //int i;
         possibility = 100;
-		//TileContraller.Delaytime = 0.6f;
-        PlayerPrefs.SetFloat("speed", 0.6f);
+
+
         clear1 =false;
         clear21 = false;
         clear22 = false;
@@ -330,6 +334,7 @@ public class TutrialDirector : MonoBehaviour
         if (clear41 == true)
         {
             SceneManager.LoadScene("TitleScene");
+            PlayerPrefs.SetFloat("speed",formerDelayTime);
         }
         if ((clear51==true)&(clear41==false)){
 			next.GetComponent<Image>().sprite=endimage;
@@ -346,6 +351,7 @@ public class TutrialDirector : MonoBehaviour
     public void TitleButtonDown()
     {
         SceneManager.LoadScene("TitleScene");
+        PlayerPrefs.SetFloat("speed",formerDelayTime);
     }
 
 }
