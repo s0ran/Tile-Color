@@ -21,8 +21,8 @@ public class GameDirector : MonoBehaviour
 
 	void Start()
 	{
+		if(PlayerPrefs.GetFloat("speed",0.04f)>0.06f) PlayerPrefs.SetFloat("speed",0.04f);
 		//Advertisement.Initialize("3263089",false);
-
 		audioSource = GetComponent<AudioSource>();
 		textGameOver.SetActive(false);
 		possibility = 100;
