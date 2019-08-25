@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -767,7 +767,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1348,13 +1348,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u56DE\u8EE2\u304C\u7D42\u308F\u308B\u3068\u9EC4\u8272\u306E\u30BF\u30A4\u30EB\u304C\n\u30E9\u30F3\u30C0\u30E0\u306A\u5834\u6240\u306B\u751F\u6210\u3055\u308C\u308B\u6642\u3082\u3042\u308B\u3088\u3002"
+  m_Text: "\u56DE\u8EE2\u304C\u7D42\u308F\u308B\u3068\u9EC4\u8272\u306E\u30BF\u30A4\u30EB\u304C\u30E9\u30F3\u30C0\u30E0\u306A\u5834\u6240\u306B\u751F\u6210\u3055\u308C\u308B\u3088\u3002\n(\u751F\u6210\u3055\u308C\u306A\u3044\u6642\u3082\u3042\u308B\u3088\u3002\uFF09"
 --- !u!222 &449716727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1446,13 +1446,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\n\u56DE\u308A\u65B9\u304C\u5909\u308F\u308B\u3088\u3002"
+  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\u56DE\u308A\u65B9\u304C\u5909\u308F\u308B\u3088\u3002"
 --- !u!222 &482001915
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2357,7 +2357,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2779,13 +2779,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u306F\u67A0\u304B\u3089\u51FA\u305A\u306B\n\u30BF\u30A4\u30EB\u540C\u58EB\u306E\u91CD\u306A\u308A\u304C\u304A\u3053\u308B\u3088"
+  m_Text: "\u7AEF\u306E\u30BF\u30A4\u30EB\u306F\u67A0\u304B\u3089\u51FA\u305A\u306B\u30BF\u30A4\u30EB\u540C\u58EB\u306E\u91CD\u306A\u308A\u304C\u304A\u3053\u308B\u3088"
 --- !u!222 &1098998370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3887,13 +3887,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 120
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\n\u305D\u306E\u5468\u308A\u306E\u30BF\u30A4\u30EB\u304C\n\u53CD\u6642\u8A08\u5468\u308A\u306B\u56DE\u308B\u3088\u3002"
+  m_Text: "\u30BF\u30A4\u30EB\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\u305D\u306E\u5468\u308A\u306E\u30BF\u30A4\u30EB\u304C\u53CD\u6642\u8A08\u5468\u308A\u306B\u56DE\u308B\u3088\u3002"
 --- !u!222 &2061688434
 CanvasRenderer:
   m_ObjectHideFlags: 0
