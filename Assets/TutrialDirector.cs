@@ -76,7 +76,7 @@ public class TutrialDirector : MonoBehaviour
             if (endrotation == true)
             {
                 Text2.enabled = true;
-                Text2.GetComponent<Animator>().SetTrigger("isText2");
+                //Text2.GetComponent<Animator>().SetTrigger("isText2");
                 endrotation = false;
                 next.interactable = true;
                 Task.text = "クリア";
@@ -198,12 +198,12 @@ public class TutrialDirector : MonoBehaviour
                 {
                     case 1:
                         yajirusi3.gameObject.SetActive(true);
-                        yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi3");
+                        yajirusi3.GetComponent<Animator>().SetTrigger("isYajirusi32");
                         break;
                     case 2:
                         Text23.enabled = true;
                         yajirusi2.gameObject.SetActive(true);
-                        yajirusi2.GetComponent<Animator>().SetTrigger("isLeft");
+                        yajirusi2.GetComponent<Animator>().SetTrigger("isYajirusi22");
                         break;
                     case 3:
                         Text31.enabled = true;
