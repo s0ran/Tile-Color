@@ -17,6 +17,8 @@ public class TutrialDirector : MonoBehaviour
     public GameObject yajirusi1,yajirusi3,yajirusi;
     public Button title;
     float formerDelayTime;
+    int WaitTime;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -60,9 +62,10 @@ public class TutrialDirector : MonoBehaviour
 	{
         if (clear1 == false)
         {
-
+            WaitTime=8;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
+
                 TapAction(1);
                 if (nottile != true)
                 {
@@ -81,6 +84,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear1 == true) & (clear21 == false))
         {
+            WaitTime = 5;
             Task.text = "側面にある黄色いタイルをタップしよう";
             //Text23.enabled = true;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
@@ -102,6 +106,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear23 == true)&(clear22==false))
         {
+            WaitTime = 3;
             Task.text = "端にある黄色いタイルをタップしよう";
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
             {
@@ -120,6 +125,8 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear1 == true) & (clear22 == true) & (clear31 == false))
         {
+
+            WaitTime = 8;
             Task.text = "タイルを重ねて\n色を進化させよう";
             Text3.enabled = true;
             Text3.GetComponent<Animator>().SetTrigger("isText3");
@@ -139,6 +146,7 @@ public class TutrialDirector : MonoBehaviour
         }
         else if ((clear32 == true) && (clear51==false))
         {
+            WaitTime = 1;
             Task.text = "黄色いタイルをタップしよう";
             Text42.enabled = true;
             if ((Input.GetMouseButtonDown(0)) & (tapp == false))
@@ -210,7 +218,7 @@ public class TutrialDirector : MonoBehaviour
                     hit.collider.gameObject.GetComponent<TileContraller>().OnAwake
                         (hit.collider.gameObject.GetComponent<TileContraller>().Line,
                             hit.collider.gameObject.GetComponent<TileContraller>().Raw);
-                    Invoke("Generate", TileContraller.Delaytime * 8);
+                    Invoke("Generate", TileContraller.Delaytime * WaitTime);
                 }
                 else
                 {
